@@ -1,12 +1,8 @@
 # SSTV
 
-## Sobre LimeSDR
-
-https://wiki.myriadrf.org/LimeSDR-USB
-
 ISS usa el modo PD120
 
-Resolucion 640x496.
+Resolución 640x496.
 
 ## Librerías
 
@@ -15,7 +11,7 @@ Resolucion 640x496.
 - Para imagenes: https://python-pillow.org/.
 
 - Para cosas de matematica: Numpy (pero no me gusta mucho, no haría falta
-  usarla)..
+  usarla).
 
 - Para hacer graficos: Matplotlib.
 
@@ -31,7 +27,7 @@ Resolucion 640x496.
 
 - Explicaciones sobre todos los modos: http://www.sstv-handbook.com/download/sstv_04.pdf
 
-- Codigos que usa los modos: http://www.g0hwc.com/sstv_modes.html
+- Codigos que usa los modos: http://www.g0hwc.com/sstv_modes.html
 
 - Sitio sobre SSTV con audio: https://www.nonstopsystems.com/radio/frank_radio_sstv.htm
 
@@ -68,3 +64,8 @@ There are three markers for SSTV (red lines):
 - https://www.radioworld.com/news-and-business/ssbsc-a-winwin-for-fm-radio
 
 - https://www.nab.org/xert/scitech/pdfs/rd040912.pdf
+
+## Sobre LimeSDR
+
+https://wiki.myriadrf.org/LimeSDR-USB
+
