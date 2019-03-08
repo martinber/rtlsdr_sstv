@@ -69,3 +69,6 @@ There are three markers for SSTV (red lines):
 
 https://wiki.myriadrf.org/LimeSDR-USB
 
+## Link de transmisor SSTV
+
+https://github.com/dnet/pySSTV
