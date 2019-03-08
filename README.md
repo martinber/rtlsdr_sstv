@@ -78,3 +78,6 @@ There are three markers for SSTV (red lines):
 
 
 
+## Link de transmisor SSTV
+
+https://github.com/dnet/pySSTV
