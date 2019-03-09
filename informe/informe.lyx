@@ -449,6 +449,53 @@ Las antenas están hechas de cintas flexibles y son dipolos, etc.
 La polarización es lineal creo.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/4antennas.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Antenas VHF/UHF.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://amsat.org"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Cálculo de enlace
 \end_layout
@@ -512,61 +559,23 @@ literal "false"
 
 \end_inset
 
-M.
- M.
- Zin, M.
- Z.
- N.
- Jenu, F.
- A.
- Po'ad.
- (Dic.
- 2011).
+F.
+ H.
+ Bauer, S.
+ Samburov, L.
+ McFadin, B.
+ Bruninga and H.
+ Watarikawa.
  
 \begin_inset Quotes fld
 \end_inset
 
-Measurements and reduction of microwave oven electromagnetic leakage
+Amateur Radio on the International Space Station – Phase 2 hardware system
 \begin_inset Quotes frd
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-2"
-literal "false"
-
-\end_inset
-
-ENACOM.
- Resolución 3690-2004.
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-3"
-literal "false"
-
-\end_inset
-
-Ministerio de Salud de la República Argentina.
- Resolución 202-1995.
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-4"
-literal "false"
-
-\end_inset
-
-Code of Federal Regulations.
- CFR Part 1970.
+ http://www.termeszetvilaga.hu/radiokapcsolat/ariss_leiras_angol.pdf
 \end_layout
 
 \end_body

@@ -101,3 +101,5 @@ espaciales](https://www.flickr.com/photos/nasa2explore/sets/72157657170189075)
 
 [Artículo sobre
 antenas y hardware](http://www.termeszetvilaga.hu/radiokapcsolat/ariss_leiras_angol.pdf)
+
+[Foto de equipo](http://www.marexmg.org/hardware/kenwood.html)
