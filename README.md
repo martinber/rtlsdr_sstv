@@ -6,9 +6,7 @@ Resolución 640x496.
 
 ## Librerías
 
-- https://github.com/roger-/pyrtlsdr.
-
-- Para imagenes: https://python-pillow.org/.
+- Para imagenes: https://python-pillow.org/
 
 - Para cosas de matematica: Numpy (pero no me gusta mucho, no haría falta
   usarla).
@@ -17,9 +15,16 @@ Resolución 640x496.
 
 - Para trabajar con archivos WAV: Buscar.
 
-## Tutoriales
+- Para trabajar con LimeSDR y RTL-SDR: https://github.com/pothosware/SoapySDR/wiki/PythonSupport
 
-- https://witestlab.poly.edu/blog/capture-and-decode-fm-radio/#tldrversion
+- Para trabajar solamente con RTL-SDR: https://github.com/roger-/pyrtlsdr
+
+
+## Tutoriales y ejemplos
+
+- Demodulacion FM: https://witestlab.poly.edu/blog/capture-and-decode-fm-radio/#tldrversion
+
+- Transmision de SSB usando SoapySDR: https://github.com/pothosware/SoapySDR/blob/master/python/apps/SimpleSiggen.py
 
 ## Notas
 
@@ -67,7 +72,11 @@ There are three markers for SSTV (red lines):
 
 ## Sobre LimeSDR
 
-https://wiki.myriadrf.org/LimeSDR-USB
+- https://www.crowdsupply.com/lime-micro/limesdr-mini
+
+- https://wiki.myriadrf.org/LimeSDR-Mini
+
+
 
 ## Link de transmisor SSTV
 
