@@ -1,0 +1,919 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass IEEEtran
+\begin_preamble
+% for subfigures/subtables
+\usepackage[caption=false,font=footnotesize]{subfig}
+\end_preamble
+\options journal
+\use_default_options false
+\begin_modules
+todonotes
+\end_modules
+\maintain_unincluded_children false
+\language spanish
+\language_package auto
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\float_placement tbh
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Your Title"
+\pdf_author "Your Name"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Modulación y Demodulación Digital de SSTV PD120
+\end_layout
+
+\begin_layout Author
+\begin_inset Flex Author Name
+status open
+
+\begin_layout Plain Layout
+Bernardi
+\begin_inset space ~
+\end_inset
+
+Martín
+\begin_inset space ~
+\end_inset
+
+Gustavo
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+, Remedi
+\begin_inset space ~
+\end_inset
+
+Augusto
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+, Rittano
+\begin_inset space ~
+\end_inset
+
+Ignacio
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Author Affiliation
+status open
+
+\begin_layout Plain Layout
+Universidad Nacional de Río Cuarto, Facultad de Ingeniería, Departamento
+ de Telecomunicaciones
+\begin_inset Newline newline
+\end_inset
+
+Río Cuarto, Córdoba, Argentina
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+martin@mbernardi.com.ar
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Author Affiliation
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+agustoremedi@gmail.com
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Author Affiliation
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Author Mark
+status open
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+rittanoignacio@gmail.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Se mostrará una implementación de un transmisor y de un decodificador de
+ imágenes SSTV modo PD120, utilizando SDR y Python.
+ asdkalsdjlaks dlaks.
+ Nos centraremos en el modo PD120 ya que uno de los objetivos de este trabajo
+ es demodular imágenes transmitidas por la Estación Espacial Internacional,
+ estas imágenes están destinadas a ser recibidas por radioaficionados.
+ Después, además de demodular las transmisiones de la ISS, realizamos una
+ transmisión entre dos equipos SDR en un entorno de laboratorio.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Paragraph Start
+status open
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+ U
+\end_layout
+
+\end_inset
+
+n
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+SSTV proviene de 
+\emph on
+Slow Scan Television
+\emph default
+ es una forma de transmitir imágenes a través de un canal de banda angosta
+ en frecuencias de audio.
+ Se modula la imagen en un ancho de banda limitado por el usado por los
+ transmisores de radio, luego ese transmisor modula la señal en FM para
+ su transmisión.
+ Hay distintas formas de codificar una imagen SSTV denominados modos, en
+ este trabajo nos centramos en el modo PD120 ya que es el que utiliza la
+ Estación Espacial Internacional para enviar las imágenes, pero de todas
+ formas haremos una comparación básica entre los distintos modos para mostrar
+ sus diferencias.
+\end_layout
+
+\begin_layout Plain Layout
+Luego se harán los cálculos correspondientes a como transmite la ISS sus
+ imágenes, analizando la potencia transmitida, ganancia de las antenas,
+ etc.
+\end_layout
+
+\begin_layout Plain Layout
+Entonces después demodulamos lo de la ISS, después hicimos transmisiones
+ propias utilizando un LimeSDR Mini y recepción utilizando un RTLSDR.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Slow Scan Television
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+En SSTV dsnflaskdjfkasdfa
+\end_layout
+
+\begin_layout Plain Layout
+Hay modos que son en blanco y negro y otros son a color.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Modo PD120
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Las especificaciones del modo PD120 es: sdakfkjsdfs
+\end_layout
+
+\begin_layout Plain Layout
+Para ahorrar en tiempo de transmisión se aprovecha el hecho de que el ojo
+ no es tan susceptible a diferencias de color como diferencias de brillo,
+ etc.
+ Mostrar imagen de ejemplo.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Comparación de modos
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Parecido al modo PD120 están los modos PD60, PD90, etc.
+ Sus diferencias son jasdfhlksadf
+\end_layout
+
+\begin_layout Plain Layout
+Después están los modos Martin, adjfslajdfadf.
+ Varían sus tiempos de transmisión, calidades, resolución, etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Implementación de modulador/demodulador PD120
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Para la implementación utilizamos nuestro propio programa hecho en Python,
+ que se comunica con el SDR utilizando la librería SoapySDR
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Modulación
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+La modulación consiste en abrir un archivo de imagen PNG, luego se hace
+ un reescalado si es necesario etc.
+\end_layout
+
+\begin_layout Plain Layout
+Como en el modo PD120 se usa YCrCb entonces utilizando al librería Pillow
+ (PIL) cargamos la imagen en ese formato.
+ Entonces nos quedó una matriz en donde cada componente tiene las componentes
+ Y, Cr, Cb.
+\end_layout
+
+\begin_layout Plain Layout
+Luego se hace una iteración para cada línea, dfsjkdf
+\end_layout
+
+\begin_layout Plain Layout
+Finalmente se realiza una modulación más en FM utilizando como portadora
+ a la frecuencia final, etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Demodulación
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+La primera demodulación FM se hace a partir de las muestras IQ, ajshdlajsd
+\end_layout
+
+\begin_layout Plain Layout
+Una vez que se tiene la señal en banda base, se debe demodular el PD120,
+ para esto se utilizó un filtro de Hilbert que como resultado da las muestras
+ en cuadratura.
+ Luego se aplica un retraso sdfjsdfsjkafsa.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Resultados
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Imagenes de resultado
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Transmisiones desde ISS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+La ISS transmite imágenes mas o menos 4 veces al año para conmemorar.
+\end_layout
+
+\begin_layout Plain Layout
+Las organizaciones que intervienen son ARISS, AMSAT, etc.
+\end_layout
+
+\begin_layout Plain Layout
+Además de transmitir SSTV en ocasiones especiales, se pueden hacer comunicacione
+s por voz en el tiempo libre de los astronautas, se puede hacer Packet Radio,
+ etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Equipamiento
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+En la ISS como equipamiento se utilizan unas radios sdfjhskdfljlhsd.
+ La potencia que tienen es de sdkfhlsjdk.
+\end_layout
+
+\begin_layout Plain Layout
+Tienen algunas modificaciones para cumplir todos los estándares de seguridad
+ requeridos en la ISS.
+\end_layout
+
+\begin_layout Plain Layout
+Soportan HF (20 meters, 15 meters & 10 meters), VHF (2-meters), UHF (70cm),
+ and the microwave bands (L and S band) These antennas also permit the reception
+ of the Russian Glisser EVA video signals (2.0 GHz).
+\end_layout
+
+\begin_layout Plain Layout
+WA1 - WA3 son iguales y para VHF/UHF.
+ WA4 es para HF (es una cinta de 2.5m).
+ Son todas de cinta flexible.
+ Tamién tienen un radomo con una espiral de banda L/S y un diplexor.
+ Las WA1-3 tienen dos cosas de los costados son stubs para la adaptación.
+ Tienen un largo de 0.5m (1/4
+\begin_inset Formula $\lambda$
+\end_inset
+
+ de 145.8MHz)
+\end_layout
+
+\begin_layout Plain Layout
+Kenwood TM-D700 radio.
+ This radio supports 2 meter (144-146 MHz) and 70 cm (435-438 MHz) transmit/rece
+ive operation and L-band uplink operation.
+ This radio provides a higher output power capability (10-25 Watts) than
+ the Phase 1 radio system and can support FM and packet operations.
+ The higher power capability should allow nearly horizon-to-horizon signal
+ reception using simple hand-held radios or scanners.
+\end_layout
+
+\begin_layout Plain Layout
+Después hay más radios, como una Yaesu FT-100, Ericsson MP-X.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/kenwood_recortado.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Radio Kenwood D700"
+target "https://www.flickr.com/photos/nasa2explore/9561855037/in/photolist-fyX1nB-fzcicw-fyXaAn-fqTWap-fzbG9d-fzcuAL-fyWos4-fqfoQ8-fyXfgZ-fzbGGJ-fzctAb-fzciW9-fzcBw5-fzcxRm-fzctTC-fzcAM9-fyXboT-fzcgC3-fyWo5r-fzcjfE-fyXeQx-fyXfo2-fyX1H8-fzbFHw-fyX2e4-fzcty9-fzciKy-fzbGCC-fyX1yD-fyX18n-fyXfbv-fqfoPv-fzcBjJ-fyWZUP-fzctXW-fzctUY-fzcitj-fzbNYy-fAjAu1-fzbGEL-fzcxRs-fzcjjW-fzcjxb-fyXgKK-fyWo4k-fyX242-fyWp4r-fzczDm-fyXf3H-fyXbtT"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "NASA"
+target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "CC BY-NC 2.0"
+target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+En el exterior hay 4 antenas de la ARISS instaladas en el modulo de servicio
+ que son para las bandas ssdasd y asdjask.
+ Fueron instaladas en la Expedición 4 en el año 2002 poco tiempo después
+ de que se empiece a construir todo.
+\end_layout
+
+\begin_layout Plain Layout
+Las antenas están hechas de cintas flexibles y son dipolos, etc.
+ Los cables coaxiles llegan hasta dentro por dsflsjdkhfsd
+\end_layout
+
+\begin_layout Plain Layout
+La polarización es lineal creo.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/4antennas.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Antenas VHF/UHF.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://amsat.org"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/primer_plano_2_recortado.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Foto de una de las antenas colocadas (tomada años después de su instalación)"
+target "https://www.flickr.com/photos/nasa2explore/9576396997/in/album-72157657170189075/"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "NASA"
+target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "CC BY-NC 2.0"
+target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cálculo de enlace
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Para calcular el enlace supondremos que la ISS está a un ángulo de jhsdfksd,
+ entonces suponemos que la distancia es sdjhflsd
+\end_layout
+
+\begin_layout Plain Layout
+Ver si se debe ignorar la atmósfera
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Recepción de transmisiones desde ISS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Para recibir las transmisiones desde la ISS utilizamos una antena Double
+ Cross de polarización circular mano derecha diseñada para la frecuencia
+ de sdkfhskdf.
+\end_layout
+
+\begin_layout Plain Layout
+Después en una ocasión utilizamos una antena de Dipolo en V extendible sostenida
+ a mano, sjdkfsdf.
+\end_layout
+
+\begin_layout Plain Layout
+En un principio almacenamos las grabaciones como archivos de audio WAV y
+ demodulamos con el software QSSTV.
+ La demodulación utilizando nuestro propio software se explica más adelante
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Resultados
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Como resultados obtuvimos las imágenes fjkgldkfjgdsgfd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusiones
+\end_layout
+
+\begin_layout Appendices
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Debido a la popularidad de los sistemas SDR es una buena opción para hacer
+ modulaciones y demodulaciones de bajo costo sin necesidad de comprar una
+ radio Baofeng sdfskdf, esto es por el aumento de las capacidades de procesamien
+to.
+ Además es muy flexible ya que s epueden hacer distintos tipos de modulaciones
+ a distintos anchos de banda, etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+literal "false"
+
+\end_inset
+
+F.
+ H.
+ Bauer, S.
+ Samburov, L.
+ McFadin, B.
+ Bruninga and H.
+ Watarikawa.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Amateur Radio on the International Space Station – Phase 2 hardware system
+\begin_inset Quotes frd
+\end_inset
+
+.
+ http://www.termeszetvilaga.hu/radiokapcsolat/ariss_leiras_angol.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "2"
+key "key-1"
+literal "false"
+
+\end_inset
+
+G.
+ Bauer, S Samburov.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Antennna Systems and Antenna EVA Status
+\begin_inset Quotes frd
+\end_inset
+
+.
+ http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/AntennaSystemsEVAStatus
+BauerSamburov.pdf
+\end_layout
+
+\end_body
+\end_document

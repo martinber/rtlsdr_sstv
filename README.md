@@ -1,27 +1,8 @@
-# SSTV
+# SSTV PD120
 
 ISS usa el modo PD120
 
-Resolución 640x496.
-
-## Librerías
-
-- https://github.com/roger-/pyrtlsdr.
-
-- Para imagenes: https://python-pillow.org/.
-
-- Para cosas de matematica: Numpy (pero no me gusta mucho, no haría falta
-  usarla).
-
-- Para hacer graficos: Matplotlib.
-
-- Para trabajar con archivos WAV: Buscar.
-
-## Tutoriales
-
-- https://witestlab.poly.edu/blog/capture-and-decode-fm-radio/#tldrversion
-
-## Notas
+## Notas sobre modos SSTV
 
 - http://www.classicsstv.com/pdmodes.php
 
@@ -35,40 +16,52 @@ Resolución 640x496.
 
 - Sobre demodulacion avanzada: http://lionel.cordesses.free.fr/gpages/Cordesses.pdf
 
-- RDS aparentemente transmite a 1-2kb/s. un PNG que tengo pesa 11KiB. RDS2 soporta
-  imagenes de max. 4KB: JPG, PNG o GIF.
+- Resolución 640x496.
 
-### Tiempo transmision
+- Tiempo de transmisión 120s. Aunque segun
+    [esta pagina](http://f1ult.free.fr/DIGIMODES/MULTIPSK/sstv_en.htm) son 126s.
 
-Segun: http://f1ult.free.fr/DIGIMODES/MULTIPSK/sstv_en.htm
+## Espectrograma de QSSTV
 
-PD 120 (RX only): color mode, transmission time: 126 s,
+Esto es lo que muestra el espectrograma de la derecha del programa QSSTV.
 
-### Espectrograma de QSSTV
-
-Spectrum and Waterfall:
 There are three markers for SSTV (red lines):
 
 - 1200: Sync frequency
+
 - 1500: Lower video frequency
+
 - 2300: Upper video frequency In DRM, the markers indicate the 3 unmodulated carrier frequencies
 
-### Encajar SSTV en broadcast FM
+## Programación
 
-- RDS: https://en.wikipedia.org/wiki/Radio_Data_System
+### Librerías
 
-- Alguien que capaz que ya lo haya hecho: https://github.com/zouppen/subcarrier-sstv
+- Para imagenes: https://python-pillow.org/
 
-### Sobre SSBSC para stereo:
+- Para cosas de matematica: Numpy (pero no me gusta mucho, no haría falta
+  usarla).
 
-- https://www.radioworld.com/news-and-business/ssbsc-a-winwin-for-fm-radio
+- Para hacer graficos: Matplotlib.
 
-- https://www.nab.org/xert/scitech/pdfs/rd040912.pdf
+- Para trabajar con archivos WAV: Buscar.
 
-## Sobre LimeSDR
+- Para trabajar con LimeSDR y RTL-SDR: https://github.com/pothosware/SoapySDR/wiki/PythonSupport
 
-https://wiki.myriadrf.org/LimeSDR-USB
+- Para trabajar solamente con RTL-SDR: https://github.com/roger-/pyrtlsdr
 
-## Link de transmisor SSTV
+### Tutoriales y ejemplos
+
+- Demodulacion FM: https://witestlab.poly.edu/blog/capture-and-decode-fm-radio/#tldrversion
+
+- Transmision de SSB usando SoapySDR: https://github.com/pothosware/SoapySDR/blob/master/python/apps/SimpleSiggen.py
+
+### Sobre LimeSDR
+
+- https://www.crowdsupply.com/lime-micro/limesdr-mini
+
+- https://wiki.myriadrf.org/LimeSDR-Mini
+
+### Link de transmisor SSTV
 
 https://github.com/dnet/pySSTV
