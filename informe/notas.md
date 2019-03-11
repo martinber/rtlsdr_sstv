@@ -69,7 +69,7 @@ más info en la página:
 - Two antennas are installed in the Columbus module, currently serving the
     Ericcson radios deployed there. Frequencies available for transmission to
     and from Columbus are 2 meters, 70 centimeters, L-band and S-band. These
-    antennas will also support the Ham TV  DATV transmitter.
+    antennas will also support the Ham TV DATV transmitter.
 
 [Noticia de cuando se instalaron las
 antenas](https://www.qsl.net/dg7ro/iss/news/aris2401.nws)
@@ -103,3 +103,6 @@ espaciales](https://www.flickr.com/photos/nasa2explore/sets/72157657170189075)
 antenas y hardware](http://www.termeszetvilaga.hu/radiokapcsolat/ariss_leiras_angol.pdf)
 
 [Foto de equipo](http://www.marexmg.org/hardware/kenwood.html)
+
+[Sobre propagacion de radio en
+espacio](https://www.spaceacademy.net.au/spacelink/radiospace.htm)
