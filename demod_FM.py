@@ -3,10 +3,15 @@ import numpy as np
 import scipy.signal
 import matplotlib.pyplot as plt
 import pylab
+from PIL import Image as im
 
+img = im.new('YCbCr',(640,496),"white")
 fs, data = wavfile.read('./audios_imagenes_prueba/negro.wav')
+#fs, data = wavfile.read('./audios_imagenes_prueba/blanco.wav')
 
 t = np.arange(len(data))/fs
+print(fs)
+print(len(data))
 
 signal = scipy.signal.hilbert(data) #dejar data en cuadratura para sacarle angulo
 inst_ph = np.unwrap(np.angle(signal)) #unwrap deja a la fase de forma lineal en vez de rampa
