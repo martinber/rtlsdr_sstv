@@ -434,6 +434,68 @@ En la ISS como equipamiento se utilizan unas radios sdfjhskdfljlhsd.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/kenwood_recortado.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Radio Kenwood D700"
+target "https://www.flickr.com/photos/nasa2explore/9561855037/in/photolist-fyX1nB-fzcicw-fyXaAn-fqTWap-fzbG9d-fzcuAL-fyWos4-fqfoQ8-fyXfgZ-fzbGGJ-fzctAb-fzciW9-fzcBw5-fzcxRm-fzctTC-fzcAM9-fyXboT-fzcgC3-fyWo5r-fzcjfE-fyXeQx-fyXfo2-fyX1H8-fzbFHw-fyX2e4-fzcty9-fzciKy-fzbGCC-fyX1yD-fyX18n-fyXfbv-fqfoPv-fzcBjJ-fyWZUP-fzctXW-fzctUY-fzcitj-fzbNYy-fAjAu1-fzbGEL-fzcxRs-fzcjjW-fzcjxb-fyXgKK-fyWo4k-fyX242-fyWp4r-fzczDm-fyXf3H-fyXbtT"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "NASA"
+target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "CC BY-NC 2.0"
+target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 En el exterior hay 4 antenas de la ARISS instaladas en el modulo de servicio
  que son para las bandas ssdasd y asdjask.
  Fueron instaladas en la Expedición 4 en el año 2002 poco tiempo después
@@ -488,6 +550,68 @@ target "http://amsat.org"
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_antenas/primer_plano_2_recortado.jpg
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Foto de una de las antenas colocadas (tomada años después de su instalación)"
+target "https://www.flickr.com/photos/nasa2explore/9576396997/in/album-72157657170189075/"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "NASA"
+target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "CC BY-NC 2.0"
+target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
