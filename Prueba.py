@@ -1,5 +1,7 @@
 from PIL import Image
 import wave, math
+import matplotlib.pyplot as plt
+import pylab
 
 imagen = Image.open("negro.png")
 imagen2 = imagen.convert('YCbCr')
@@ -13,7 +15,7 @@ rango = frec_blanco - frec_negro
 
 tiempo = 120 #segundos
 cant_valores = alto * ancho * 3 #cantidad de valores contando la intesidad, intensidad menos azul e intensidad menos rojo
-duracion = tiempo / cant_valores #la duración de cada uno de los valores del pixel en segundos
+duracion = 190*(10**-6) #la duración de cada uno de los valores del pixel en segundos
 
 max_valor = 255
 
@@ -21,6 +23,12 @@ filas = []
 
 fs = 44100
 ts = 1/fs
+
+fsinc = 1200
+tsinc = 0.02
+
+fpor = 1500
+tpor = 0.00208 
 
 for i in range(alto) :
 
@@ -38,26 +46,47 @@ def conv_frec (valor_pixel) :
 	return valor
 
 frec = []
-for j in range(alto) :
+for j in range(0,alto,2) :
+	frec.append((fsinc, tsinc))
+	frec.append((fpor, tpor))
 	for i in range(ancho) : 
-		frec.append(conv_frec(filas[j][i][0]))
+		frec.append((conv_frec(filas[j][i][0]), duracion))
 	for i in range(ancho) :
-		frec.append(conv_frec(filas[j][i][1]))
+		frec.append((conv_frec(filas[j][i][1]), duracion))
 	for i in range(ancho) :
-		frec.append(conv_frec(filas[j][i][2]))
-
+		frec.append((conv_frec(filas[j][i][2]), duracion))
+	for i in range(ancho) : 
+		frec.append((conv_frec(filas[j+1][i][0]), duracion))
 datos = []
 muestras = int(duracion * fs)
 offset = 0
-for i in range(len(frec)) :
-	for t in range(muestras):
-		datos.append(math.sin((2*math.pi*t*frec[i]*ts)+offset))
-	offset += duracion
+for i, s in frec :
+	if i == fsinc :
+		for k in range(int(tsinc * fs)) :
+			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
+		offset += 2*math.pi*ts*(k+1)*i
+	elif i == fpor and s == tpor :
+		for	k in range (int(tpor * fs)):
+			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
+		offset += 2*math.pi*ts*(k+1)*i
+	else :
+		for k in range(muestras):
+			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
+		offset += 2*math.pi*ts*(k+1)*i
+	
+
+
+#time = range(0, len(datos))
+#fig = plt.figure()
+#ax = plt.subplot(211)
+#ax.plot(time,datos)
+
+#pylab.show()
 
 audio = wave.open("audio.wav","wb")
 num_canales = 1
 bytes = 1
-total_muestras = len(frec)
+total_muestras = len(datos)
 comptype = "NONE"
 compname = "not compressed"
 
@@ -67,8 +96,15 @@ enteros = []
 for v in datos:
     enteros.append(int((v*128)+128))
 
+valores = []	
+for y in enteros :
+	if y == 256 :
+		y = 255
+		valores.append(y)
+	else :
+		valores.append(y)
 #print(datos)
-audio.writeframes(bytearray(enteros))
+audio.writeframes(bytearray(valores))
 
 audio.close()
 
