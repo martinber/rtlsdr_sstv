@@ -3,7 +3,7 @@ import wave, math
 import matplotlib.pyplot as plt
 import pylab
 
-imagen = Image.open("negro.png")
+imagen = Image.open("./audios_imagenes_prueba/prueba.png")
 imagen2 = imagen.convert('YCbCr')
 
 ancho = imagen2.width
@@ -52,29 +52,28 @@ for j in range(0,alto,2) :
 	for i in range(ancho) : 
 		frec.append((conv_frec(filas[j][i][0]), duracion))
 	for i in range(ancho) :
-		frec.append((conv_frec(filas[j][i][1]), duracion))
-	for i in range(ancho) :
 		frec.append((conv_frec(filas[j][i][2]), duracion))
+	for i in range(ancho) :
+		frec.append((conv_frec(filas[j][i][1]), duracion))
 	for i in range(ancho) : 
 		frec.append((conv_frec(filas[j+1][i][0]), duracion))
 datos = []
-muestras = int(duracion * fs)
+muestras = 0
 offset = 0
 for i, s in frec :
-	if i == fsinc :
-		for k in range(int(tsinc * fs)) :
-			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
-		offset += 2*math.pi*ts*(k+1)*i
-	elif i == fpor and s == tpor :
-		for	k in range (int(tpor * fs)):
-			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
-		offset += 2*math.pi*ts*(k+1)*i
-	else :
-		for k in range(muestras):
-			datos.append(math.sin((2*math.pi*k*i*ts)+offset))
-		offset += 2*math.pi*ts*(k+1)*i
+	muestras += s * fs
+	x = int(muestras)
 	
-
+		
+		
+	for k in range(x) :
+		datos.append(math.sin((2*math.pi*k*i*ts)+offset))
+	offset += 2*math.pi*ts*(k+1)*i
+	
+	
+	
+	muestras -= x
+	#print(muestras)
 
 #time = range(0, len(datos))
 #fig = plt.figure()
