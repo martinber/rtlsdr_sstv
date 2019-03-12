@@ -338,65 +338,84 @@ Slow Scan Television
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-En SSTV dsnflaskdjfkasdfa
-\end_layout
-
-\begin_layout Plain Layout
-Hay modos que son en blanco y negro y otros son a color.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Es un método de transmisión de imágenes via radiocomunicación, se caracteriza
  por ser capaz de transmitir imágenes en canales de banda angosta y generalmente
- es utilizado por radioaficionados en canales de voz por VHF
+ es utilizado por radioaficionados en canales de voz por VHF.
 \end_layout
 
 \begin_layout Standard
-Para su transmisión se utiliza software especializado y la salida de audio
- de un ordenador para modular la imagen en frecuencias audibles y utilizando
- una radio VHF para realizar una modulación de FM para su transmisión.
+Se utiliza modulación FM analógica, en donde la señal varía su frecuencia
+ dependiendo del brillo de cada pixel en la imagen.
+ Existen diferentes modos que varían en resolución, tiempo de transmisión,
+ o en la posibilidad de transmitir color.
+ Ejemplos de modos son: Martin 1, Martin 2, Robot 24, Robot 36, PD 120,
+ PD 90, PD 90, etc.
+\end_layout
+
+\begin_layout Standard
+Para transmitir se utiliza software especializado que modula la señal SSTV
+ en frecuencias audibles, luego la salida de audio del ordenador se conecta
+ una radio VHF para realizar la modulación FM final para su transmisión.
  Para su recepción se realiza el procedimiento inverso: una radio VHF realiza
  la demodulación de FM, el audio demodulado ingresa a un ordenador y un
- programa realiza la demodulación de SSTV y genera la imagen (ver Imagen
+ programa realiza la demodulación de SSTV.
+ Alternativamente, si se utiliza SDR en lugar de radios VHF, es necesario
+ un ordenador y un SDR en cada extremo.
+ Este es la implementación que utilizaremos y se puede observar en la Imagen
  
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-?
-\end_layout
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-Alternativamente, al utilizar SDR, es necesario un ordenador y un SDR en
- cada extremo, esto se puede observar en la Imagen
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-?
-\end_layout
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:esquema_transmisor"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_varias/diagrama_transmision_vhf.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:esquema_transmisor"
+
+\end_inset
+
+Esquema para la transmisión de SSTV, la recepción se realiza de la misma
+ manera pero en sentido inverso
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-Modo PD120
+Modo PD 120
 \end_layout
 
 \begin_layout Standard
@@ -424,6 +443,67 @@ Se usa un ancho de banda (en la parte de audio) de 2.5kHz para que entre
  en los moduladores que soportan el ancho de banda de la voz.
  Después de modular, por ejemplo la ISS termina usando un canal de la banda
  de 2m de 25kHz
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Algunas características del modo PD 120 son:
+\end_layout
+
+\begin_layout Itemize
+Resolución: 640x496.
+\end_layout
+
+\begin_layout Itemize
+Tiempo de transmisión: 126 segundos.
+\end_layout
+
+\begin_layout Itemize
+Componentes: Y, R-Y, B-Y.
+\end_layout
+
+\begin_layout Itemize
+Contiene marcas de sincronización al inicio de cada línea.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_varias/formato_pd.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:formato_pd"
+
+\end_inset
+
+Gráfica representativa de una línea de una imagen codificada en PD 120
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1413,6 +1493,29 @@ Double Cross – A NOAA Satellite Downlink Antenna
 
 .
  https://www.qsl.net/l/lu7did/docs/NOAA/DoubleCross_137Mhz%20AntennaMARTES.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "4"
+key "key-1"
+literal "false"
+
+\end_inset
+
+P.
+ Turner.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+The PD SSTV modes
+\begin_inset Quotes frd
+\end_inset
+
+.
+ http://www.classicsstv.com/pdmodes.php
 \end_layout
 
 \end_body
