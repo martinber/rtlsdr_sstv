@@ -354,6 +354,47 @@ Hay modos que son en blanco y negro y otros son a color.
 
 \end_layout
 
+\begin_layout Standard
+Es un método de transmisión de imágenes via radiocomunicación, se caracteriza
+ por ser capaz de transmitir imágenes en canales de banda angosta y generalmente
+ es utilizado por radioaficionados en canales de voz por VHF
+\end_layout
+
+\begin_layout Standard
+Para su transmisión se utiliza software especializado y la salida de audio
+ de un ordenador para modular la imagen en frecuencias audibles y utilizando
+ una radio VHF para realizar una modulación de FM para su transmisión.
+ Para su recepción se realiza el procedimiento inverso: una radio VHF realiza
+ la demodulación de FM, el audio demodulado ingresa a un ordenador y un
+ programa realiza la demodulación de SSTV y genera la imagen (ver Imagen
+ 
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Alternativamente, al utilizar SDR, es necesario un ordenador y un SDR en
+ cada extremo, esto se puede observar en la Imagen
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Modo PD120
 \end_layout
@@ -371,6 +412,18 @@ Para ahorrar en tiempo de transmisión se aprovecha el hecho de que el ojo
  no es tan susceptible a diferencias de color como diferencias de brillo,
  etc.
  Mostrar imagen de ejemplo.
+\end_layout
+
+\begin_layout Plain Layout
+Se puede decodificar partes de una imagen.
+ Los software soportan varios modos y suelen tener detección de modo automática.
+\end_layout
+
+\begin_layout Plain Layout
+Se usa un ancho de banda (en la parte de audio) de 2.5kHz para que entre
+ en los moduladores que soportan el ancho de banda de la voz.
+ Después de modular, por ejemplo la ISS termina usando un canal de la banda
+ de 2m de 25kHz
 \end_layout
 
 \end_inset
@@ -514,6 +567,40 @@ Las organizaciones que intervienen son ARISS, AMSAT, etc.
 Además de transmitir SSTV en ocasiones especiales, se pueden hacer comunicacione
 s por voz en el tiempo libre de los astronautas, se puede hacer Packet Radio,
  etc.
+\end_layout
+
+\begin_layout Plain Layout
+La órbita de la ISS es LEO, con una inclinacion de ...
+ y uan altura de 400km
+\end_layout
+
+\begin_layout Plain Layout
+Transmite para todos lados, se puede recibir de horizonte a horizonte un
+ con alambre asi nomas
+\end_layout
+
+\begin_layout Plain Layout
+La pisada del satélite es de ...km de diametro si se mira de horizonte a horizonte
+ o de ...km de diametro si se miran hasta una elevacion de 10° que es el mínimo
+ que vimos por experiencia.
+\end_layout
+
+\begin_layout Plain Layout
+Las pasadas duran como máximo aproximadamente 11min si la elevación máxima
+ es de 90° y si se mide el tiempo desde horizonte a horizonte, pero si se
+ mide el tiempo entre 10° y 10° el tiempo es de 7min
+\end_layout
+
+\begin_layout Plain Layout
+Se transmite en FM, en la banda de los 2m, que va desde 144MHz a 148MHz
+ aprox depende de la región de la ITU.
+ Ancho de banda de 25kHz o 12.5kHz, segun captura es de 20-23kHz aprox, entonces
+ 20 o 25kHz debe ser.
+ Algunos países dejan hasta 15, 20 o 25 o 30?
+\end_layout
+
+\begin_layout Plain Layout
+Exactamente se transmite a 145.8MHz
 \end_layout
 
 \end_inset
@@ -790,6 +877,285 @@ Para calcular el enlace supondremos que la ISS está a un ángulo de jhsdfksd,
 Ver si se debe ignorar la atmósfera
 \end_layout
 
+\begin_layout Plain Layout
+G_dipolo = 1.64
+\end_layout
+
+\begin_layout Plain Layout
+G_dipolo = 2.15dBi
+\end_layout
+
+\begin_layout Plain Layout
+G_doublecross = entre 0dBi y 2.16dBi (ver mas abajo)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A_{0}=32.4+20log(d[km])+20log(f[MHz])
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{r}=P_{t}+G_{t}-A_{o}+G_{r}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elevación
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Distancia
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2300km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1500km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1000km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+30°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+770km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+45°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+570km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90°
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+400km
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Distancias aproximadas a la Estación Espacial Internacional en función de
+ la elevación.
+ Calculado con el software 
+\emph on
+gpredict
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Para calcular el enlace supondremos que la ISS está a un ángulo de 10°,
+ entonces suponemos que la distancia es 1500km según GPredict
+\end_layout
+
+\begin_layout Plain Layout
+Ver si se debe ignorar la atmósfera
+\end_layout
+
+\begin_layout Plain Layout
+Supongo
+\end_layout
+
+\begin_layout Plain Layout
+G_dipolo = 2.15dBi
+\end_layout
+
+\begin_layout Plain Layout
+G_doublecross = 0dBi
+\end_layout
+
+\begin_layout Plain Layout
+Pt = 10W - 25W -> 10dB - 14dB
+\end_layout
+
+\begin_layout Plain Layout
+f = 145.8MHz
+\end_layout
+
+\begin_layout Plain Layout
+A_0 da: 139.2
+\end_layout
+
+\begin_layout Plain Layout
+Gpredict predice perdidas de 145dB@100MHz
+\end_layout
+
+\begin_layout Plain Layout
+Pr da: -127dBW, -123dBW -> -109dBm, -93dBm
+\end_layout
+
+\begin_layout Plain Layout
+Tiene sentido porque SDR similares tienen una sensibilidad en VHF de -134dBm
+ segun https://www.rtl-sdr.com/measurements-on-rtl-sdr-e4000-and-r820t-dvb-t-dongl
+es-image-rejection-internal-signals-sensitivity-overload-1db-compression-intermo
+dulation/
+\end_layout
+
+\begin_layout Plain Layout
+Buscar sobre figura de ruido?
+\end_layout
+
 \end_inset
 
 
@@ -815,9 +1181,107 @@ Después en una ocasión utilizamos una antena de Dipolo en V extendible sosteni
 \end_layout
 
 \begin_layout Plain Layout
+Hay que corregir el efecto doppler
+\end_layout
+
+\begin_layout Plain Layout
 En un principio almacenamos las grabaciones como archivos de audio WAV y
  demodulamos con el software QSSTV.
  La demodulación utilizando nuestro propio software se explica más adelante
+\end_layout
+
+\begin_layout Plain Layout
+Hay que ver cuando pasa la ISS con heavens-above, gpredict, etc, si la antena
+ es la double cross nuestra con 10° de elevacion se recibe bien, sino puede
+ que haga falta mas.
+\end_layout
+
+\begin_layout Plain Layout
+Se envían imágenes de 2minutos, con intervalos generalmente de 3 minutos
+ entre image e imagen
+\end_layout
+
+\begin_layout Plain Layout
+Suelen enviar algo de 12 fotos pero no da el tiempo con una sola pasada
+ para recibirlas todas, se llegan a recibir entre 1 imagen y media o 2 imagenes
+ y media
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Antena utilizada
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Usamos una double cross construida por nosotros.
+ Según las simulaciones tiene una ganancia máxima de 2.16dBi según nuestras
+ simulaciones en CST.
+ el patrón de radiación es óptimo para recepción de satélites como la ISS
+ que pasan y se van, ya que tienen una ganancia mayor en los horizontes,
+ un poco menos bien arriba y poco hacia el piso.
+\end_layout
+
+\begin_layout Plain Layout
+Es importante que no tenga nulos ya que eso provoca bandas ruidosas en la
+ imagen
+\end_layout
+
+\begin_layout Plain Layout
+Son 4 dipolos de lambda/2 separados lambda/4, dos de ellos están conectados
+ con un desfasaje de lambda/4
+\end_layout
+
+\begin_layout Plain Layout
+La antena está polarizada circularmente a la derecha aunque en esta aplicación
+ no hizo falta
+\end_layout
+
+\begin_layout Plain Layout
+La antena fue diseñada para los 137MHz pero funcionó bien para los 145.8MHz.
+ Las mediciones de ROE en el laboratorio dieron menores a 6.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_varias/radiacion_double_cross.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama de radiación teórico de antena Double Cross.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -835,6 +1299,13 @@ status open
 
 \begin_layout Plain Layout
 Como resultados obtuvimos las imágenes fjkgldkfjgdsgfd
+\end_layout
+
+\begin_layout Plain Layout
+Para las transmisiones hechas entre nosotros vimos que se necesita un SNR
+ de aprox ...
+ Si se usa QSSTV en ambos extremos el SNR necesario es de ...
+ O se puede calcular la figura de ruido
 \end_layout
 
 \end_inset
@@ -857,6 +1328,12 @@ Debido a la popularidad de los sistemas SDR es una buena opción para hacer
 to.
  Además es muy flexible ya que s epueden hacer distintos tipos de modulaciones
  a distintos anchos de banda, etc.
+\end_layout
+
+\begin_layout Plain Layout
+Estaría bueno hacer un modo SSTV más rápido que use más ancho de banda.
+ La evolucion de SSTV es DRM que es digital, entra en el mismo ancho de
+ banda, corrige errores, etc.
 \end_layout
 
 \end_inset
@@ -913,6 +1390,29 @@ Antennna Systems and Antenna EVA Status
 .
  http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/AntennaSystemsEVAStatus
 BauerSamburov.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "3"
+key "key-1"
+literal "false"
+
+\end_inset
+
+G.
+ Martes.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Double Cross – A NOAA Satellite Downlink Antenna
+\begin_inset Quotes frd
+\end_inset
+
+.
+ https://www.qsl.net/l/lu7did/docs/NOAA/DoubleCross_137Mhz%20AntennaMARTES.pdf
 \end_layout
 
 \end_body
