@@ -632,60 +632,34 @@ Transmisiones desde ISS
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-La ISS transmite imágenes mas o menos 4 veces al año para conmemorar.
+La Estación Espacial Internacional transmite imágenes por SSTV en ocasiones
+ especiales, algunos días al año, generalmente para conmemorar fechas especiales
+ o aniversarios.
+ Estas imágenes pueden ser recibidas libremente siempre y cuando se tenga
+ línea de vista con la ISS, la frecuencia utilizada es de 145.8MHz, la modulación
+ es FM con un ancho de banda de 20kHz.
 \end_layout
 
-\begin_layout Plain Layout
-Las organizaciones que intervienen son ARISS, AMSAT, etc.
+\begin_layout Standard
+La órbita de la ISS es LEO, a una altura aproximada de 400km y con una inclinaci
+ón de52°, por lo tanto es posible recibir las transmisiones en prácticamente
+ cualquier parte del mundo siempre y cuando ésta pase sobre la estacion
+ receptora en ese momento.
+ La pisada del satélite es de aproximadamente 4000km de diámetro.
 \end_layout
 
-\begin_layout Plain Layout
-Además de transmitir SSTV en ocasiones especiales, se pueden hacer comunicacione
-s por voz en el tiempo libre de los astronautas, se puede hacer Packet Radio,
- etc.
+\begin_layout Standard
+La duración de la pasada es de como máximo 11 minutos, aunque en las pruebas
+ realizadas observamos que es necesario al menos que la ISS tenga una elevación
+ mayor a 10° para una buena recepción, en tal caso la duración de la pasada
+ de como máximo 7 minutos.
 \end_layout
 
-\begin_layout Plain Layout
-La órbita de la ISS es LEO, con una inclinacion de ...
- y uan altura de 400km
-\end_layout
-
-\begin_layout Plain Layout
-Transmite para todos lados, se puede recibir de horizonte a horizonte un
- con alambre asi nomas
-\end_layout
-
-\begin_layout Plain Layout
-La pisada del satélite es de ...km de diametro si se mira de horizonte a horizonte
- o de ...km de diametro si se miran hasta una elevacion de 10° que es el mínimo
- que vimos por experiencia.
-\end_layout
-
-\begin_layout Plain Layout
-Las pasadas duran como máximo aproximadamente 11min si la elevación máxima
- es de 90° y si se mide el tiempo desde horizonte a horizonte, pero si se
- mide el tiempo entre 10° y 10° el tiempo es de 7min
-\end_layout
-
-\begin_layout Plain Layout
-Se transmite en FM, en la banda de los 2m, que va desde 144MHz a 148MHz
- aprox depende de la región de la ITU.
- Ancho de banda de 25kHz o 12.5kHz, segun captura es de 20-23kHz aprox, entonces
- 20 o 25kHz debe ser.
- Algunos países dejan hasta 15, 20 o 25 o 30?
-\end_layout
-
-\begin_layout Plain Layout
-Exactamente se transmite a 145.8MHz
-\end_layout
-
-\end_inset
-
-
+\begin_layout Standard
+Al utilizar el modo PD 120 se envían imágenes con una duración de 2 minutos.
+ Generalmente se envían aproximadamente 12 fotos distintas, con un tiempo
+ de espera entre ellas de 2 minutos.
+ En cada pasada es posible recibir una o dos imágenes completas.
 \end_layout
 
 \begin_layout Subsection
@@ -693,55 +667,58 @@ Equipamiento
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-En la ISS como equipamiento se utilizan unas radios sdfjhskdfljlhsd.
- La potencia que tienen es de sdkfhlsjdk.
+El equipamiento utilizado en la Estación Espacial Internacional para la
+ transmisión de imágenes SSTV actualmente es de:
 \end_layout
 
-\begin_layout Plain Layout
-Tienen algunas modificaciones para cumplir todos los estándares de seguridad
- requeridos en la ISS.
+\begin_layout Itemize
+Computadora con el software MMSSTV.
 \end_layout
 
-\begin_layout Plain Layout
-Soportan HF (20 meters, 15 meters & 10 meters), VHF (2-meters), UHF (70cm),
- and the microwave bands (L and S band) These antennas also permit the reception
- of the Russian Glisser EVA video signals (2.0 GHz).
+\begin_layout Itemize
+Radio Kenwood D700 o D710.
 \end_layout
 
-\begin_layout Plain Layout
-WA1 - WA3 son iguales y para VHF/UHF.
- WA4 es para HF (es una cinta de 2.5m).
- Son todas de cinta flexible.
- Tamién tienen un radomo con una espiral de banda L/S y un diplexor.
- Las WA1-3 tienen dos cosas de los costados son stubs para la adaptación.
- Tienen un largo de 0.5m (1/4
+\begin_layout Itemize
+Arreglo de conmutación de RF.
+\end_layout
+
+\begin_layout Itemize
+Antenas de VHF.
+\end_layout
+
+\begin_layout Standard
+Además de las radios Kenwood, hay otros equipos que se utilizan para otros
+ fines como Packet Radio y voz, todos ellos tienen algunas modificiaciones
+ para cumplir con todos los estándares de seguridad requeridos en la ISS.
+\end_layout
+
+\begin_layout Standard
+La salidas de las radios están conectadas a un arreglo de conmutación para
+ seleccionar la antena a utilizar, estas antenas están ubicadas en el Módulo
+ de Servicio 
+\emph on
+Zvezda
+\emph default
+ trabajan en HF (20m, 15m y 10m), VHF (2m), UHF (70cm), Microondas (banda
+ L y S) y 2GHz.
+\end_layout
+
+\begin_layout Standard
+Las antenas WA1, WA2 y WA3 son utilizadas para VHF, consisten de un conductor
+ de 50cm (1/4
 \begin_inset Formula $\lambda$
 \end_inset
 
- de 145.8MHz)
+) y dos stubs, todo ellos construidos con una cinta flexible.
+ Además contienen un radomo con una espira para la banda L/S y un diplexor.
 \end_layout
 
-\begin_layout Plain Layout
-Kenwood TM-D700 radio.
- This radio supports 2 meter (144-146 MHz) and 70 cm (435-438 MHz) transmit/rece
-ive operation and L-band uplink operation.
- This radio provides a higher output power capability (10-25 Watts) than
- the Phase 1 radio system and can support FM and packet operations.
- The higher power capability should allow nearly horizon-to-horizon signal
- reception using simple hand-held radios or scanners.
-\end_layout
-
-\begin_layout Plain Layout
-Después hay más radios, como una Yaesu FT-100, Ericsson MP-X.
-\end_layout
-
-\end_inset
-
-
+\begin_layout Standard
+La antena WA4 es similar pero de una longitud de 2.5m, y también hay más
+ antenas diseñadas para otras frecuencias ubicadas en el módulo Columbus.
+ Por lo tanto para SSTV se utiliza la antena WA1, WA2 o WA3, la potencia
+ utilizada es de 25W.
 \end_layout
 
 \begin_layout Standard
@@ -799,31 +776,6 @@ literal "false"
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-En el exterior hay 4 antenas de la ARISS instaladas en el modulo de servicio
- que son para las bandas ssdasd y asdjask.
- Fueron instaladas en la Expedición 4 en el año 2002 poco tiempo después
- de que se empiece a construir todo.
-\end_layout
-
-\begin_layout Plain Layout
-Las antenas están hechas de cintas flexibles y son dipolos, etc.
- Los cables coaxiles llegan hasta dentro por dsflsjdkhfsd
-\end_layout
-
-\begin_layout Plain Layout
-La polarización es lineal creo.
 \end_layout
 
 \end_inset
@@ -1246,6 +1198,11 @@ Recepción de transmisiones desde ISS
 \end_layout
 
 \begin_layout Standard
+Para la recepción de las imágenes utilizamos una antena Double Cross, con
+ una polarización circular mano derecha y diseñada para 137MHz.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex TODO Note (inline)
 status open
 
@@ -1274,17 +1231,6 @@ En un principio almacenamos las grabaciones como archivos de audio WAV y
 Hay que ver cuando pasa la ISS con heavens-above, gpredict, etc, si la antena
  es la double cross nuestra con 10° de elevacion se recibe bien, sino puede
  que haga falta mas.
-\end_layout
-
-\begin_layout Plain Layout
-Se envían imágenes de 2minutos, con intervalos generalmente de 3 minutos
- entre image e imagen
-\end_layout
-
-\begin_layout Plain Layout
-Suelen enviar algo de 12 fotos pero no da el tiempo con una sola pasada
- para recibirlas todas, se llegan a recibir entre 1 imagen y media o 2 imagenes
- y media
 \end_layout
 
 \end_inset
