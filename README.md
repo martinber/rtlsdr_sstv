@@ -65,3 +65,7 @@ There are three markers for SSTV (red lines):
 ### Link de transmisor SSTV
 
 https://github.com/dnet/pySSTV
+
+### Para hacer muestras de 16 bit
+
+http://blog.acipo.com/wave-generation-in-python/
