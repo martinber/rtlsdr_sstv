@@ -7,7 +7,7 @@ from funcion_tincho import escribir_pixel
 from PIL import Image
 
 
-fs, data = wavfile.read('./audios_imagenes_prueba/pruebaestrella.wav')
+fs, data = wavfile.read('./audios_imagenes_prueba/pass_1_imagen_1_gqrx_20190131_133159_145792001.wav')
 img = Image.new('YCbCr',(640,496),"white")
 
 ts = 1/fs
@@ -18,13 +18,13 @@ inst_fr = (np.diff(inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y 
 
 muestras = 0
 cont_linea = -1
-i = 160000
+i = 100000
 
 while i < len(inst_fr):
 
     if 1100 <= inst_fr[i] <= 1300:
         muestras += 1 #contador de muestras, si muchas se encuentran en el rango era cambio de linea
-    if muestras > int((0.02+0.00208)*fs):
+    if muestras > int(0.01975*fs):
         cont_linea += 2 #casi seguro indico la siguiente
         muestras = 0 #resetear muestras para la proxima iteracion
         columna = 0
@@ -38,23 +38,23 @@ while i < len(inst_fr):
             else:
                 escribir_pixel(img, columna, cont_linea, "lum", valor)
 
-        cb_resampleados = scipy.signal.resample(inst_fr[i+int(0.1216*fs):i+int(0.1216*2*fs)],640)
+        cr_resampleados = scipy.signal.resample(inst_fr[i+int(0.1216*fs):i+int(0.1216*2*fs)],640)
         for columna,valor in enumerate(cb_resampleados):
-            if valor < 1500:
-                escribir_pixel(img, columna, cont_linea, "cb", 1500)
-            elif valor > 2300:
-                escribir_pixel(img, columna, cont_linea, "cb", 2300)
-            else:
-                escribir_pixel(img, columna, cont_linea, "cb", valor)
-
-        cr_resampleados = scipy.signal.resample(inst_fr[i+int(0.1216*2*fs):i+int(0.1216*3*fs)],640)
-        for columna,valor in enumerate(cr_resampleados):
             if valor < 1500:
                 escribir_pixel(img, columna, cont_linea, "cr", 1500)
             elif valor > 2300:
                 escribir_pixel(img, columna, cont_linea, "cr", 2300)
             else:
                 escribir_pixel(img, columna, cont_linea, "cr", valor)
+
+        cb_resampleados = scipy.signal.resample(inst_fr[i+int(0.1216*2*fs):i+int(0.1216*3*fs)],640)
+        for columna,valor in enumerate(cr_resampleados):
+            if valor < 1500:
+                escribir_pixel(img, columna, cont_linea, "cb", 1500)
+            elif valor > 2300:
+                escribir_pixel(img, columna, cont_linea, "cb", 2300)
+            else:
+                escribir_pixel(img, columna, cont_linea, "cb", valor)
 
         ny_resampleados = scipy.signal.resample(inst_fr[i+int(0.1216*3*fs):i+int(0.1216*4*fs)],640)
         for columna,valor in enumerate(ny_resampleados):
