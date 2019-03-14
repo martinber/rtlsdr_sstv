@@ -921,6 +921,50 @@ G_dipolo = 2.15dBi
 G_doublecross = entre 0dBi y 2.16dBi (ver mas abajo)
 \end_layout
 
+\begin_layout Plain Layout
+Las dos primeras ecuaciones son lo mismo, ya lo comprobé
+\end_layout
+
+\begin_layout Plain Layout
+------
+\end_layout
+
+\begin_layout Plain Layout
+https://www.itu.int/en/ITU-R/space/workshops/2016-small-sat/Documents/Link_budget_
+uvigo.pdf -> Informacion sobre todo para > 1GHz
+\end_layout
+
+\begin_layout Plain Layout
+Estimated ionospheric effects for elevation angles of about 30°: The effects
+ at 500 MHz are: Faraday rotation 1.2 rotations, Propagation delay 1μs, Refractio
+n<2.4′, Variation in the direction of arrival (r.m.s.) 48”, Absorption (auroral
+ and/or polar cap) 0.2dB, Absorption (mid-latitude)<0.04dB, Dispersion 0.0032
+ ps/Hz, Scintillation up to 27.5 dB
+\end_layout
+
+\begin_layout Plain Layout
+When propagating through the ionosphere, a linearly polarizedwave will suffer
+ a gradual rotation of its plane of polarizationdue to the presence of the
+ geomagnetic field and theanisotropy of the plasma medium
+\end_layout
+
+\begin_layout Plain Layout
+Scintillations are created by fluctuations of the refractiveindex, which
+ are caused by inhomogeneities in the mediumIt is important for signals
+ below 3 GHz but the effects may beobserved occasionally up to 10 GHz
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+L=20log\left(\frac{4\pi d}{\lambda}\right)
+\]
+
 \end_inset
 
 
@@ -1158,7 +1202,7 @@ G_doublecross = 0dBi
 \end_layout
 
 \begin_layout Plain Layout
-Pt = 10W - 25W -> 10dB - 14dB
+Pt = 25W -> 14dB
 \end_layout
 
 \begin_layout Plain Layout
@@ -1174,7 +1218,7 @@ Gpredict predice perdidas de 145dB@100MHz
 \end_layout
 
 \begin_layout Plain Layout
-Pr da: -127dBW, -123dBW -> -109dBm, -93dBm
+Pr da: -123dBW -> -93dBm
 \end_layout
 
 \begin_layout Plain Layout
@@ -1218,7 +1262,8 @@ Después en una ocasión utilizamos una antena de Dipolo en V extendible sosteni
 \end_layout
 
 \begin_layout Plain Layout
-Hay que corregir el efecto doppler
+Hay que corregir el efecto doppler!!! Sacar numero https://www.reddit.com/r/RTLSDR
+/comments/ao4bt3/iss_will_send_sstv_easy_for_beginners_tommorrow/
 \end_layout
 
 \begin_layout Plain Layout
