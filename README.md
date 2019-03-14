@@ -2,6 +2,12 @@
 
 ISS usa el modo PD120
 
+## Por hacer
+
+- Hacer imagn de ejemplo que muestre que el ojo no es tan sensible al color
+
+
+
 ## Notas sobre modos SSTV
 
 - http://www.classicsstv.com/pdmodes.php
