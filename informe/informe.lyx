@@ -345,7 +345,7 @@ Es un método de transmisión de imágenes via radiocomunicación, se caracteriz
 
 \begin_layout Standard
 Se utiliza modulación FM analógica, en donde la señal varía su frecuencia
- dependiendo del brillo de cada pixel en la imagen.
+ dependiendo del brillo de cada píxel en la imagen.
  Existen diferentes modos que varían en resolución, tiempo de transmisión,
  o en la posibilidad de transmitir color.
  Ejemplos de modos son: Martin 1, Martin 2, Robot 24, Robot 36, PD 120,
@@ -419,38 +419,6 @@ Modo PD 120
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Las especificaciones del modo PD120 es: sdakfkjsdfs
-\end_layout
-
-\begin_layout Plain Layout
-Para ahorrar en tiempo de transmisión se aprovecha el hecho de que el ojo
- no es tan susceptible a diferencias de color como diferencias de brillo,
- etc.
- Mostrar imagen de ejemplo.
-\end_layout
-
-\begin_layout Plain Layout
-Se puede decodificar partes de una imagen.
- Los software soportan varios modos y suelen tener detección de modo automática.
-\end_layout
-
-\begin_layout Plain Layout
-Se usa un ancho de banda (en la parte de audio) de 2.5kHz para que entre
- en los moduladores que soportan el ancho de banda de la voz.
- Después de modular, por ejemplo la ISS termina usando un canal de la banda
- de 2m de 25kHz
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Algunas características del modo PD 120 son:
 \end_layout
 
@@ -468,6 +436,124 @@ Componentes: Y, R-Y, B-Y.
 
 \begin_layout Itemize
 Contiene marcas de sincronización al inicio de cada línea.
+\end_layout
+
+\begin_layout Standard
+En este modo, la transmisión se realiza de a dos líneas (de arriba hacia
+ abajo), para la transmisión de cada línea se genera (ver Imagen 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:formato_pd"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Sync
+\emph default
+: Por 20ms se envía un tono de 1200Hz.
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Sync porch
+\emph default
+: Por 2.08ms se envía un tono de 1500Hz.
+\end_layout
+
+\begin_layout Itemize
+Componente 
+\emph on
+Y1
+\emph default
+: Por 121.6ms se envía la luminancia de la primer línea.
+\end_layout
+
+\begin_layout Itemize
+Componente 
+\emph on
+R-Y
+\emph default
+: Por 121.6ms se envía la crominancia 
+\emph on
+R-Y
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+Componente 
+\emph on
+B-Y
+\emph default
+: Por 121.6ms se envía la crominancia 
+\emph on
+B-Y
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+Componente 
+\emph on
+Y2
+\emph default
+: Por 121.6ms se envía la luminancia de la segunda línea.
+\end_layout
+
+\begin_layout Standard
+La componente 
+\emph on
+Y1
+\emph default
+ consiste de un tono cuya frecuencia varía en función de el brillo de una
+ línea de la imagen, las frecuencias varían entre 1500Hz y 2300Hz para denotar
+ la escala entre el color negro al blanco.
+ En este intervalo de tiempo de 121.6 se transmite la luminancia de cada
+ píxel de la primer línea de la imagen de izquierda a derecha, al transmitir
+ 640 píxeles (ancho de imagen), cada píxel será transmitido por 0.190ms.
+\end_layout
+
+\begin_layout Standard
+Las componentes 
+\emph on
+R-Y
+\emph default
+ y 
+\emph on
+B-Y
+\emph default
+ se llaman crominancias y pueden ser nombradas 
+\emph on
+Cr
+\emph default
+ y 
+\emph on
+Cb
+\emph default
+ respectivamente.
+ Se transmiten de manera similar para dar color a la imagen, cada una de
+ ellas representa a la diferencia entre la componente de color rojo y luminancia
+, y la componente de color azul y luminancia respectivamente.
+ Estas componentes de color son el promedio entre los valores presentes
+ en la primer y segunda línea de la imagen.
+\end_layout
+
+\begin_layout Standard
+Finalmente se transmite 
+\emph on
+Y2
+\emph default
+ que es la luminancia de la segunda línea de la imagen.
+ Luego el proceso se repite de manera similar para las líneas 3 y 4, 5 y
+ 6, 7 y 8, etc.
+ De esta forma las luminancias de las líneas se envían de a pares, mientras
+ que las crominancias son compartidas cada dos líneas.
 \end_layout
 
 \begin_layout Standard
@@ -509,6 +595,74 @@ Gráfica representativa de una línea de una imagen codificada en PD 120
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+De esta manera la resolución vertical de luminancia es dos veces mayor que
+ la resolución vertical de las crominancias, produciendo una compresión
+ en el color de la imagen.
+ Esta compresión disminuye el tiempo de transmisión aprovechando el hecho
+ que los cambios de color en la imagen son menos perceptibles a la vista
+ que los cambios en el brillo, un ejemplo de esto se puede observar en la
+ Imagen
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:detalle_comparacion_color"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_varias/detalle_comparacion.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:detalle_comparacion_color"
+
+\end_inset
+
+Degradación de la imagen debido a la compresión de color.
+ De izquierda a derecha: Imagen original, compresión vertical 2 a 1, compresión
+ 4 a 1 vertical y horizontal.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Las frecuencias utilizadas producen una señal con un ancho de banda de 2.5kHz,
+ esto permite que puedan utilizarse equipos diseñados para la transmisión
+ de voz.
+ Luego de una modulación FM, el ancho de banda es el ancho de banda de un
+ canal VHF (entre 12.5kHz y 25kHz).
 \end_layout
 
 \begin_layout Subsection
@@ -642,7 +796,7 @@ La Estación Espacial Internacional transmite imágenes por SSTV en ocasiones
 
 \begin_layout Standard
 La órbita de la ISS es LEO, a una altura aproximada de 400km y con una inclinaci
-ón de52°, por lo tanto es posible recibir las transmisiones en prácticamente
+ón de 52°, por lo tanto es posible recibir las transmisiones en prácticamente
  cualquier parte del mundo siempre y cuando ésta pase sobre la estacion
  receptora en ese momento.
  La pisada del satélite es de aproximadamente 4000km de diámetro.
@@ -894,6 +1048,33 @@ literal "false"
 
 \begin_layout Subsection
 Cálculo de enlace
+\end_layout
+
+\begin_layout Standard
+La potencia percibida por una estación terrena al recibir transmisiones
+ desde la Estación Espacial Internacional depende principalmente de la distancia.
+ Como la ISS se encuentra en un órbita LEO, la distancia depende principalmente
+ del ángulo de elevación a la que ésta se encuentre, valores aproximados
+ de éstas distancias se encuentran en la Tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:distancias-iss"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Para nuestros cálculos supondremos que el ángulo de elevación es de 10°,
+ cercano al mínimo necesario para una buena recepción, en este caso la distancia
+ es de aproximadamente 1500km.
+ La potencia de transmisión es de 25W, las antenas utilizadas en la Estación
+ Espacial Internacional son monopolos (ganancia 2.15dBi) y las antena utilizada
+ para la recepción es una Double Cross con una ganancia que varía entre
+ 0 y 2.16dBi.
+ De todas maneras en los cálculos utilizamos como ganancias de las antenas
+ a 0dBi.
 \end_layout
 
 \begin_layout Standard
@@ -1156,6 +1337,12 @@ Distancia
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:distancias-iss"
+
+\end_inset
+
 Distancias aproximadas a la Estación Espacial Internacional en función de
  la elevación.
  Calculado con el software 
@@ -1420,6 +1607,29 @@ literal "false"
 
 \end_inset
 
+M.
+ Bruchanov.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Image Communication on Short Waves
+\begin_inset Quotes frd
+\end_inset
+
+.
+ http://www.sstv-handbook.com/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "2"
+key "key-5"
+literal "false"
+
+\end_inset
+
 F.
  H.
  Bauer, S.
@@ -1442,7 +1652,7 @@ Amateur Radio on the International Space Station – Phase 2 hardware system
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-label "2"
+label "3"
 key "key-1"
 literal "false"
 
@@ -1466,7 +1676,7 @@ BauerSamburov.pdf
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-label "3"
+label "4"
 key "key-1"
 literal "false"
 
@@ -1489,7 +1699,7 @@ Double Cross – A NOAA Satellite Downlink Antenna
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-label "4"
+label "5"
 key "key-1"
 literal "false"
 
