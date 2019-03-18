@@ -1053,9 +1053,9 @@ Cálculo de enlace
 \begin_layout Standard
 La potencia percibida por una estación terrena al recibir transmisiones
  desde la Estación Espacial Internacional depende principalmente de la distancia.
- Como la ISS se encuentra en un órbita LEO, la distancia depende principalmente
- del ángulo de elevación a la que ésta se encuentre, valores aproximados
- de éstas distancias se encuentran en la Tabla 
+ Como la ISS se encuentra en un órbita LEO, la distancia depende del ángulo
+ de elevación a la que ésta se encuentre, valores aproximados de estas distancia
+s se encuentran en la Tabla 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:distancias-iss"
@@ -1063,114 +1063,6 @@ reference "tab:distancias-iss"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Para nuestros cálculos supondremos que el ángulo de elevación es de 10°,
- cercano al mínimo necesario para una buena recepción, en este caso la distancia
- es de aproximadamente 1500km.
- La potencia de transmisión es de 25W, las antenas utilizadas en la Estación
- Espacial Internacional son monopolos (ganancia 2.15dBi) y las antena utilizada
- para la recepción es una Double Cross con una ganancia que varía entre
- 0 y 2.16dBi.
- De todas maneras en los cálculos utilizamos como ganancias de las antenas
- a 0dBi.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Para calcular el enlace supondremos que la ISS está a un ángulo de jhsdfksd,
- entonces suponemos que la distancia es sdjhflsd
-\end_layout
-
-\begin_layout Plain Layout
-Ver si se debe ignorar la atmósfera
-\end_layout
-
-\begin_layout Plain Layout
-G_dipolo = 1.64
-\end_layout
-
-\begin_layout Plain Layout
-G_dipolo = 2.15dBi
-\end_layout
-
-\begin_layout Plain Layout
-G_doublecross = entre 0dBi y 2.16dBi (ver mas abajo)
-\end_layout
-
-\begin_layout Plain Layout
-Las dos primeras ecuaciones son lo mismo, ya lo comprobé
-\end_layout
-
-\begin_layout Plain Layout
-------
-\end_layout
-
-\begin_layout Plain Layout
-https://www.itu.int/en/ITU-R/space/workshops/2016-small-sat/Documents/Link_budget_
-uvigo.pdf -> Informacion sobre todo para > 1GHz
-\end_layout
-
-\begin_layout Plain Layout
-Estimated ionospheric effects for elevation angles of about 30°: The effects
- at 500 MHz are: Faraday rotation 1.2 rotations, Propagation delay 1μs, Refractio
-n<2.4′, Variation in the direction of arrival (r.m.s.) 48”, Absorption (auroral
- and/or polar cap) 0.2dB, Absorption (mid-latitude)<0.04dB, Dispersion 0.0032
- ps/Hz, Scintillation up to 27.5 dB
-\end_layout
-
-\begin_layout Plain Layout
-When propagating through the ionosphere, a linearly polarizedwave will suffer
- a gradual rotation of its plane of polarizationdue to the presence of the
- geomagnetic field and theanisotropy of the plasma medium
-\end_layout
-
-\begin_layout Plain Layout
-Scintillations are created by fluctuations of the refractiveindex, which
- are caused by inhomogeneities in the mediumIt is important for signals
- below 3 GHz but the effects may beobserved occasionally up to 10 GHz
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-L=20log\left(\frac{4\pi d}{\lambda}\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-A_{0}=32.4+20log(d[km])+20log(f[MHz])
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-P_{r}=P_{t}+G_{t}-A_{o}+G_{r}
-\]
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1357,71 +1249,107 @@ gpredict
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
+
+\begin_layout Standard
+Para nuestros cálculos supondremos que el ángulo de elevación es de 10°,
+ cercano al mínimo necesario para una buena recepción, en este caso la distancia
+ es de aproximadamente 1500km.
+ La potencia de transmisión es de 25W, las antenas utilizadas en la Estación
+ Espacial Internacional son monopolos (ganancia 2.15dBi) y la antena utilizada
+ para la recepción será una Double Cross con una ganancia que varía entre
+ 0 y 2.16dBi.
+\end_layout
+
+\begin_layout Standard
+Se utilizan las ecuaciones para la transmisión en el espacio libre 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-7"
+literal "false"
+
+\end_inset
+
+, ya que la atmósfera es transparente a las frecuencias de VHF.
+ Por ejemplo, a 500MHz y 30° de elevación, los efectos atmosféricos son
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-6"
+literal "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+Rotación de Faraday: 1.2 rotaciones.
+ Al propagarse por la ionósfera, una onda linealmente polarizada sufre una
+ rotación gradual de su plano de polarización.
+\end_layout
+
+\begin_layout Itemize
+Refracción: Menor a 2.4'.
+\end_layout
+
+\begin_layout Itemize
+Absorción: Menor a 0.04dB en latitudes medias.
+\end_layout
+
+\begin_layout Itemize
+Centelleo: Hasta 27.5dB.
+ Es causado por fluctuaciones en el índice de refracción de la atmósfera.
+\end_layout
+
+\begin_layout Standard
+Para realizar los cálculos en condiciones desfavorables, consideraremos
+ al centelleo como atenuación adicional.
+ Como la antena receptora es de polarización circular y las transmisiones
+ presentan polarización lineal, se considera una atenuación adicional de
+ 3dB.
+ La ganancia de la antena transmisora depende de la orientación de la ISS,
+ por lo tanto en los cálculos utilizamos 0dBi.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+L_{0}=32.4+20log(d[km])+20log(f[MHz])=139.2dB
+\]
 
 \end_inset
 
 
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Para calcular el enlace supondremos que la ISS está a un ángulo de 10°,
- entonces suponemos que la distancia es 1500km según GPredict
 \end_layout
 
-\begin_layout Plain Layout
-Ver si se debe ignorar la atmósfera
-\end_layout
-
-\begin_layout Plain Layout
-Supongo
-\end_layout
-
-\begin_layout Plain Layout
-G_dipolo = 2.15dBi
-\end_layout
-
-\begin_layout Plain Layout
-G_doublecross = 0dBi
-\end_layout
-
-\begin_layout Plain Layout
-Pt = 25W -> 14dB
-\end_layout
-
-\begin_layout Plain Layout
-f = 145.8MHz
-\end_layout
-
-\begin_layout Plain Layout
-A_0 da: 139.2
-\end_layout
-
-\begin_layout Plain Layout
-Gpredict predice perdidas de 145dB@100MHz
-\end_layout
-
-\begin_layout Plain Layout
-Pr da: -123dBW -> -93dBm
-\end_layout
-
-\begin_layout Plain Layout
-Tiene sentido porque SDR similares tienen una sensibilidad en VHF de -134dBm
- segun https://www.rtl-sdr.com/measurements-on-rtl-sdr-e4000-and-r820t-dvb-t-dongl
-es-image-rejection-internal-signals-sensitivity-overload-1db-compression-intermo
-dulation/
-\end_layout
-
-\begin_layout Plain Layout
-Buscar sobre figura de ruido?
-\end_layout
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{r}=P_{t}+G_{t}+G_{r}-L_{0}-3dB-27.5dB=-123.6dBm
+\]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Estos valores esperados de potencia recibida se corresponden con lo observado
+ en nuestras pruebas, a elevaciones de 10° se percibe que nuestro SDR RTL2832U
+ se encuentra a su límite, este equipo presenta una sensibilidad que ronda
+ los -130dBm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-8,key-9"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -1429,8 +1357,52 @@ Recepción de transmisiones desde ISS
 \end_layout
 
 \begin_layout Standard
-Para la recepción de las imágenes utilizamos una antena Double Cross, con
- una polarización circular mano derecha y diseñada para 137MHz.
+Al tratarse de valores de potencia elevados, una antena utilizada ampliamente
+ es el dipolo en V 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-10"
+literal "false"
+
+\end_inset
+
+, en nuestro caso utilizamos una antena Double Cross, con una polarización
+ circular mano derecha y diseñada para 137MHz 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+literal "false"
+
+\end_inset
+
+.
+ Esta antena tiene un patrón de radiación cercano al óptimo necesario para
+ estas aplicaciones, ya que presenta buena ganancia sobre el horizonte y
+ no presenta nulos, lo cual provocarían bandas ruidosas de corta duración
+ en la imagen.
+\end_layout
+
+\begin_layout Standard
+Esta antena consiste de cuatro dipolos de media longitud de onda inclinados
+ 30° y separados entre ellos 
+\begin_inset Formula $\lambda/4$
+\end_inset
+
+, en su alimentación, dos dipolos presentan un desfase de 
+\begin_inset Formula $\lambda/4$
+\end_inset
+
+.
+ El patrón de radiación que obtuvimos a partir de nuestras simulaciones
+ de puede observar en la Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:patron-double-cross"
+
+\end_inset
+
+, esta antena presenta una ganancia mayor a bajas elevaciones, lo que ayuda
+ a compensar las atenuaciones debido a distancias mayores.
 \end_layout
 
 \begin_layout Standard
@@ -1470,48 +1442,6 @@ Hay que ver cuando pasa la ISS con heavens-above, gpredict, etc, si la antena
 
 \end_layout
 
-\begin_layout Subsubsection
-Antena utilizada
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Usamos una double cross construida por nosotros.
- Según las simulaciones tiene una ganancia máxima de 2.16dBi según nuestras
- simulaciones en CST.
- el patrón de radiación es óptimo para recepción de satélites como la ISS
- que pasan y se van, ya que tienen una ganancia mayor en los horizontes,
- un poco menos bien arriba y poco hacia el piso.
-\end_layout
-
-\begin_layout Plain Layout
-Es importante que no tenga nulos ya que eso provoca bandas ruidosas en la
- imagen
-\end_layout
-
-\begin_layout Plain Layout
-Son 4 dipolos de lambda/2 separados lambda/4, dos de ellos están conectados
- con un desfasaje de lambda/4
-\end_layout
-
-\begin_layout Plain Layout
-La antena está polarizada circularmente a la derecha aunque en esta aplicación
- no hizo falta
-\end_layout
-
-\begin_layout Plain Layout
-La antena fue diseñada para los 137MHz pero funcionó bien para los 145.8MHz.
- Las mediciones de ROE en el laboratorio dieron menores a 6.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -1534,6 +1464,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:patron-double-cross"
+
+\end_inset
+
 Diagrama de radiación teórico de antena Double Cross.
 \end_layout
 
@@ -1625,7 +1561,7 @@ Image Communication on Short Waves
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 label "2"
-key "key-5"
+key "key-2"
 literal "false"
 
 \end_inset
@@ -1653,7 +1589,7 @@ Amateur Radio on the International Space Station – Phase 2 hardware system
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 label "3"
-key "key-1"
+key "key-3"
 literal "false"
 
 \end_inset
@@ -1677,7 +1613,7 @@ BauerSamburov.pdf
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 label "4"
-key "key-1"
+key "key-4"
 literal "false"
 
 \end_inset
@@ -1700,7 +1636,7 @@ Double Cross – A NOAA Satellite Downlink Antenna
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 label "5"
-key "key-1"
+key "key-5"
 literal "false"
 
 \end_inset
@@ -1717,6 +1653,121 @@ The PD SSTV modes
 
 .
  http://www.classicsstv.com/pdmodes.php
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "6"
+key "key-6"
+literal "false"
+
+\end_inset
+
+M.
+ Arias.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Small Satellite Link Budget Calculation
+\begin_inset Quotes frd
+\end_inset
+
+.
+ https://www.itu.int/en/ITU-R/space/workshops/2016-small-sat/Documents/Link_budget
+_uvigo.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "7"
+key "key-7"
+literal "false"
+
+\end_inset
+
+ITU-R P.525-3.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Calculation of free-space attenuation
+\begin_inset Quotes frd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "8"
+key "key-8"
+literal "false"
+
+\end_inset
+
+S.
+ Schrödle.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+R820T, RTL2832U SDR USB stick – sensitivity, dynamic range
+\begin_inset Quotes frd
+\end_inset
+
+.
+ http://www.simonsdialogs.com/2014/09/r820t-rtl2832u-sdr-usb-stick-sensitivity-dyn
+amic-range/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "9"
+key "key-9"
+literal "false"
+
+\end_inset
+
+HB9AJG.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Measurements on RTL-SDR E4000 and R820T DVB-T Dongles
+\begin_inset Quotes frd
+\end_inset
+
+.
+ https://www.rtl-sdr.com/measurements-on-rtl-sdr-e4000-and-r820t-dvb-t-dongles-ima
+ge-rejection-internal-signals-sensitivity-overload-1db-compression-intermodulati
+on/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "10"
+key "key-10"
+literal "false"
+
+\end_inset
+
+
+\begin_inset Quotes fld
+\end_inset
+
+Receiving SSTV Images from the ISS with a V-Dipole and RTL-SDR
+\begin_inset Quotes frd
+\end_inset
+
+.
+ https://www.rtl-sdr.com/receiving-sstv-images-from-the-iss-with-a-v-dipole-and-rt
+l-sdr/
 \end_layout
 
 \end_body
