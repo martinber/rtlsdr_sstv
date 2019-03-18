@@ -688,8 +688,19 @@ Después están los modos Martin, adjfslajdfadf.
 
 \end_layout
 
+\begin_layout Standard
+A modo de comparación, analizaremos brevemente qué diferencias presenta
+ el modo PD 120 con otros modos de SSTV.
+\end_layout
+
+\begin_layout Itemize
+PD 50/90/120/160/180/240/290.
+ Estos modos varían en resolución y tiempo de transmisión, pero su funcionamient
+o y formato es el mismo.
+\end_layout
+
 \begin_layout Section
-Implementación de modulador/demodulador PD120
+Implementación de modulador/demodulador PD 120
 \end_layout
 
 \begin_layout Standard
@@ -1406,35 +1417,49 @@ reference "fig:patron-double-cross"
 \end_layout
 
 \begin_layout Standard
+Un factor a considerar es el efecto Doppler producido por las altas velocidades
+ a las cuales la ISS orbita la tierra, 28000km/h.
+ La desviación de frecuencia depende de la velocidad a la cual ésta se acerca
+ o aleja, por lo tanto dependerá de cuán directamente pase sobre nosotros,
+ valores estándar son 
+\begin_inset Formula $\pm$
+\end_inset
+
+3kHz 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-11"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Para determinar en qué momentos es posible contactar la Estación Espacial
+ Internacional es posible utilizar software que calcula los tiempos de pasada,
+ elevación máxima, etc.
+ Para una buena recepción recomendamos que la elevación sea mayor a 10°.
+ En nuestro caso utilizamos el software 
+\emph on
+gpredict
+\emph default
+ y 
+\emph on
+Heavens-Above
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex TODO Note (inline)
 status open
-
-\begin_layout Plain Layout
-Para recibir las transmisiones desde la ISS utilizamos una antena Double
- Cross de polarización circular mano derecha diseñada para la frecuencia
- de sdkfhskdf.
-\end_layout
-
-\begin_layout Plain Layout
-Después en una ocasión utilizamos una antena de Dipolo en V extendible sostenida
- a mano, sjdkfsdf.
-\end_layout
-
-\begin_layout Plain Layout
-Hay que corregir el efecto doppler!!! Sacar numero https://www.reddit.com/r/RTLSDR
-/comments/ao4bt3/iss_will_send_sstv_easy_for_beginners_tommorrow/
-\end_layout
 
 \begin_layout Plain Layout
 En un principio almacenamos las grabaciones como archivos de audio WAV y
  demodulamos con el software QSSTV.
  La demodulación utilizando nuestro propio software se explica más adelante
-\end_layout
-
-\begin_layout Plain Layout
-Hay que ver cuando pasa la ISS con heavens-above, gpredict, etc, si la antena
- es la double cross nuestra con 10° de elevacion se recibe bien, sino puede
- que haga falta mas.
 \end_layout
 
 \end_inset
@@ -1605,7 +1630,8 @@ Antennna Systems and Antenna EVA Status
 \end_inset
 
 .
- http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/AntennaSystemsEVAStatus
+ http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/\SpecialChar allowbreak
+AntennaSystemsEVAStatus
 BauerSamburov.pdf
 \end_layout
 
@@ -1629,7 +1655,8 @@ Double Cross – A NOAA Satellite Downlink Antenna
 \end_inset
 
 .
- https://www.qsl.net/l/lu7did/docs/NOAA/DoubleCross_137Mhz%20AntennaMARTES.pdf
+ https://www.qsl.net/l/lu7did/docs/NOAA/\SpecialChar allowbreak
+DoubleCross_137Mhz%20AntennaMARTES.pdf
 \end_layout
 
 \begin_layout Bibliography
@@ -1768,6 +1795,28 @@ Receiving SSTV Images from the ISS with a V-Dipole and RTL-SDR
 .
  https://www.rtl-sdr.com/receiving-sstv-images-from-the-iss-with-a-v-dipole-and-rt
 l-sdr/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "11"
+key "key-11"
+literal "false"
+
+\end_inset
+
+R.
+ Hashiro.
+ 
+\begin_inset Quotes fld
+\end_inset
+
+Compensating for Doppler Shift When Contacting the ISS
+\begin_inset Quotes frd
+\end_inset
+
+ .https://www.qsl.net/ah6rh/am-radio/spacecomm/doppler-and-the-iss.html
 \end_layout
 
 \end_body
