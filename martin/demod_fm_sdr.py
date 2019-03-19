@@ -2,6 +2,8 @@ import SoapySDR
 from SoapySDR import * #SOAPY_SDR_ constants
 import numpy #use numpy for buffers
 
+import struct
+
 class Sdr:
 
     def __init__(self, sample_rate, carrier_freq):
@@ -10,12 +12,12 @@ class Sdr:
 
     def _generator(self):
         #receive some samples
-        for i in range(10):
-            sr = sdr.readStream(rxStream, [buff], len(buff))
-            print(sr.ret) #num samples or error code
-            print(sr.flags) #flags set by receive operation
-            print(sr.timeNs) #timestamp for receive buffer
-            for s in sr:
+        while True:
+            sr = self.sdr.readStream(self.rxStream, [self.buff], len(self.buff))
+            #  print(sr.ret) #num samples or error code
+            #  print(sr.flags) #flags set by receive operation
+            #  print(sr.timeNs) #timestamp for receive buffer
+            for s in self.buff:
                 yield s
 
     def __enter__(self):
@@ -26,32 +28,37 @@ class Sdr:
         #create device instance
         #args can be user defined or from the enumeration result
         args = dict(driver="rtlsdr")
-        sdr = SoapySDR.Device(args)
+        self.sdr = SoapySDR.Device(args)
 
         #query device info
-        print(sdr.listAntennas(SOAPY_SDR_RX, 0))
-        print(sdr.listGains(SOAPY_SDR_RX, 0))
-        freqs = sdr.getFrequencyRange(SOAPY_SDR_RX, 0)
+        print(self.sdr.listAntennas(SOAPY_SDR_RX, 0))
+        print(self.sdr.listGains(SOAPY_SDR_RX, 0))
+        freqs = self.sdr.getFrequencyRange(SOAPY_SDR_RX, 0)
         for freqRange in freqs: print(freqRange)
 
         #apply settings
-        sdr.setSampleRate(SOAPY_SDR_RX, 0, self.sample_rate)
-        sdr.setFrequency(SOAPY_SDR_RX, 0, self.carrier_freq)
+        self.sdr.setSampleRate(SOAPY_SDR_RX, 0, self.sample_rate)
+        self.sdr.setFrequency(SOAPY_SDR_RX, 0, self.carrier_freq)
 
         #setup a stream (complex floats)
-        rxStream = sdr.setupStream(SOAPY_SDR_RX, SOAPY_SDR_CF32)
-        sdr.activateStream(rxStream) #start streaming
+        self.rxStream = self.sdr.setupStream(SOAPY_SDR_RX, SOAPY_SDR_CF32)
+        self.sdr.activateStream(self.rxStream) #start streaming
 
         #create a re-usable buffer for rx samples
-        buff = numpy.array([0]*1024, numpy.complex64)
+        self.buff = numpy.array([0]*1024, numpy.complex64)
 
-        return _generator
+        return self._generator
 
     def __exit__(self, type, value, traceback):
         #shutdown the stream
-        sdr.deactivateStream(rxStream) #stop streaming
-        sdr.closeStream(rxStream)
+        self.sdr.deactivateStream(self.rxStream) #stop streaming
+        self.sdr.closeStream(self.rxStream)
 
-with Sdr(sample_rate=1e6, carrier_freq=145.8e6) as samples:
-    for sample in samples:
+#  with Sdr(sample_rate=1e6, carrier_freq=145.8e6) as samples:
+with Sdr(sample_rate=1e6, carrier_freq=101.3e6) as samples, \
+        open('data.raw', 'wb') as output_file:
+
+    for sample in samples():
+        output_file.write(struct.pack('<f', sample.real))
+        output_file.write(struct.pack('<f', sample.imag))
         print(sample)
