@@ -1,7 +1,9 @@
 
 
 def escribir_pixel(img, columna, linea, canal, valor):
-
+    if linea >= img.height:
+        print('nos pasamo')
+        return
     if canal == "lum":
         prev = img.getpixel((columna,linea-1))
         datapixel = (int((valor-1500)/800*255), prev[1], prev[2])
