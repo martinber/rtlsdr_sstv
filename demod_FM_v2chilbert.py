@@ -8,16 +8,25 @@ from funcion_tincho import escribir_pixel
 from PIL import Image
 
 
-fs, data = wavfile.read('./audios_imagenes_prueba/pruebaestrella.wav')
+fs, data = wavfile.read('./audios_imagenes_prueba/pass_1_imagen_2_gqrx_20190131_133606_145794000.wav')
 img = Image.new('YCbCr',(640,496),"white")
 
-data = []
-for d in data_int:
-    data.append(float(d))
-
 ts = 1/fs
+window = np.kaiser(55,3.3953) #kaiser calculado con fs = 48000
+filter = []
+for n in range((-55+1)//2,(55-1)//2+1):
+    if n % 2 != 0:
+        filter.append(2/(np.pi*n))
+    else:
+        filter.append(0)
+hilbert = filter * window
+
+zeros = np.zeros(27)
+datareal = np.concatenate([zeros,data,zeros])
+datacompleja = np.convolve(data,hilbert)*1j
+
 t = np.arange(len(data))/fs
-signal = scipy.signal.hilbert(data) #dejar data en cuadratura para sacarle angulo
+signal = datareal + datacompleja  #dejar data en cuadratura para sacarle angulo
 inst_ph = np.unwrap(np.angle(signal)) #unwrap deja a la fase de forma lineal en vez de rampa
 inst_fr = (np.diff(inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y lo resta con x(n)
 
@@ -78,12 +87,14 @@ while i < len(inst_fr):
 
     i += 1
 
+imgrgb = img.convert("RGB")
+imgrgb.save("./imagenprueba.png","PNG")
+
 #fig = plt.figure()
 #ax0 = plt.subplot(211)
-#ax0.plot(range(len(ny_resampleados)), ny_resampleados)
+#ax0.plot(range(len(hilbert)),hilbert)
+#pylab.show()
 #ax1 = plt.subplot(212)
 #ax1.plot(t[i+5600*3+1:i+5400*4+1],inst_fr[i+5600*3:i+5400*4])
 #pylab.show()
 #break
-imgrgb = img.convert("RGB")
-imgrgb.save("./imagenprueba.png","PNG")
