@@ -8,11 +8,16 @@ Argumentos leidos en RX y TX:
 - `args.rf_freq`: float.
 - `args.rf_rate`: float.
 - `args.audio_rate`: float.
+- `args.image`: str.
+
+Argumentos leidos en RX:
+
+- `args.tmp_raw`: str.
 
 Argumentos leidos en TX:
 
-- `args.image`: str.
 - `args.sstv_wav`: str o None si no se guarda el WAV.
+
 '''
 
 import argparse
@@ -50,6 +55,17 @@ parser.add_argument(
 # Argumentos RX
 
 parser_rx = subparsers.add_parser('rx', help='recibir SSTV')
+parser_rx.add_argument(
+        'image', type=str,
+        help=('Nombre de imagen a recibir, debe ser un PNG'),
+        default='./recepcion.png',
+)
+parser_rx.add_argument(
+        '--tmp-raw', type=str,
+        help=('Nombre de archivo RAW temporal en donde guardar muestras '
+              'recibidas'),
+        default='./tmp_rx.raw',
+)
 
 # Argumentos TX
 
