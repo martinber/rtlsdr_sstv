@@ -13,6 +13,9 @@ Argumentos leidos en RX y TX:
 Argumentos leidos en RX:
 
 - `args.tmp_raw`: str.
+- `args.demod_raw`: str o None si no se guarda el RAW.
+- `args.from_tmp_raw`: bool.
+- `args.fm_demod_gain`: float.
 
 Argumentos leidos en TX:
 
@@ -47,9 +50,9 @@ parser.add_argument(
 parser.add_argument(
         '--audio-rate', type=float,
         help=('Tasa de muestreo a usar al trabajar en audio, escribir en Hz, '
-              'por defecto: 30e3 para trabajar con audios a 30kHz. Usar tasas '
+              'por defecto: 10e3 para trabajar con audios a 10kHz. Usar tasas '
               'que sean fracciones enteras de --rf-rate'),
-        default=300e3,
+        default=10e3,
 )
 
 # Argumentos RX
@@ -65,6 +68,21 @@ parser_rx.add_argument(
         help=('Nombre de archivo RAW temporal en donde guardar muestras '
               'recibidas'),
         default='./tmp_rx.raw',
+)
+parser_rx.add_argument(
+        '--demod-raw', type=str,
+        help=('Nombre de archivo RAW donde guardar muestras demoduladas. '
+              'Opcional'),
+        default=None,
+)
+parser_rx.add_argument(
+        '--from-tmp-raw', action='store_true',
+        help=('Demodular desde muestras en RAW en lugar de recibir desde SDR'),
+)
+parser_rx.add_argument(
+        '--fm-demod-gain', type=float,
+        help=('Ganancia del demodulador FM. Por defecto: 0.2'),
+        default=0.2,
 )
 
 # Argumentos TX

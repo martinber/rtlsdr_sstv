@@ -28,7 +28,7 @@ def lowpass(cutout, delta_w, atten):
     # i es el indice en el vector, n es el eje con el cero centrado en el medio
     # del filtro
     # se suma 1 en el final del rango para que se incluya
-    for i, n in enumerate(inc_range(
+    for i, n in enumerate(range(
             int(-(length - 1) / 2),
             int((length - 1) / 2 + 1))):
 

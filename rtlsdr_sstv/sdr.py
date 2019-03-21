@@ -15,14 +15,14 @@ class Sdr:
             sr = self.sdr.readStream(self.rxStream, [self.buff], len(self.buff))
             #  print(sr.ret) #num samples or error code
             #  print(sr.flags) #flags set by receive operation
-            print(sr.timeNs) #timestamp for receive buffer
+            #  print(sr.timeNs) #timestamp for receive buffer
             for s in self.buff:
                 yield s
 
     def __enter__(self):
         #enumerate devices
-        results = SoapySDR.Device.enumerate()
-        for result in results: print(result)
+        #  results = SoapySDR.Device.enumerate()
+        #  for result in results: print(result)
 
         #create device instance
         #args can be user defined or from the enumeration result
@@ -30,10 +30,10 @@ class Sdr:
         self.sdr = SoapySDR.Device(args)
 
         #query device info
-        print(self.sdr.listAntennas(SOAPY_SDR_RX, 0))
-        print(self.sdr.listGains(SOAPY_SDR_RX, 0))
+        #  print(self.sdr.listAntennas(SOAPY_SDR_RX, 0))
+        #  print(self.sdr.listGains(SOAPY_SDR_RX, 0))
         freqs = self.sdr.getFrequencyRange(SOAPY_SDR_RX, 0)
-        for freqRange in freqs: print(freqRange)
+        #  for freqRange in freqs: print(freqRange)
 
         #apply settings
         self.sdr.setSampleRate(SOAPY_SDR_RX, 0, self.sample_rate)
