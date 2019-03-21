@@ -1,5 +1,5 @@
 #LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 544
+\lyxformat 508
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -29,8 +29,6 @@ todonotes
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
-\use_microtype false
-\use_dash_ligatures false
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -73,7 +71,6 @@ todonotes
 \suppress_date false
 \justification true
 \use_refstyle 0
-\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -82,10 +79,7 @@ todonotes
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\is_math_indent 0
-\math_numbering_side default
-\quotes_style french
-\dynamic_quotes 0
+\quotes_language french
 \papercolumns 2
 \papersides 1
 \paperpagestyle default
@@ -912,7 +906,6 @@ status open
 LatexCommand href
 name "Radio Kenwood D700"
 target "https://www.flickr.com/photos/nasa2explore/9561855037/in/photolist-fyX1nB-fzcicw-fyXaAn-fqTWap-fzbG9d-fzcuAL-fyWos4-fqfoQ8-fyXfgZ-fzbGGJ-fzctAb-fzciW9-fzcBw5-fzcxRm-fzctTC-fzcAM9-fyXboT-fzcgC3-fyWo5r-fzcjfE-fyXeQx-fyXfo2-fyX1H8-fzbFHw-fyX2e4-fzcty9-fzciKy-fzbGCC-fyX1yD-fyX18n-fyXfbv-fqfoPv-fzcBjJ-fyWZUP-fzctXW-fzctUY-fzcitj-fzbNYy-fAjAu1-fzbGEL-fzcxRs-fzcjjW-fzcjxb-fyXgKK-fyWo4k-fyX242-fyWp4r-fzczDm-fyXf3H-fyXbtT"
-literal "false"
 
 \end_inset
 
@@ -922,7 +915,6 @@ literal "false"
 LatexCommand href
 name "NASA"
 target "https://www.flickr.com/photos/nasa2explore"
-literal "false"
 
 \end_inset
 
@@ -931,7 +923,6 @@ literal "false"
 LatexCommand href
 name "CC BY-NC 2.0"
 target "https://creativecommons.org/licenses/by-nc/2.0/"
-literal "false"
 
 \end_inset
 
@@ -1021,7 +1012,6 @@ status open
 LatexCommand href
 name "Foto de una de las antenas colocadas (tomada años después de su instalación)"
 target "https://www.flickr.com/photos/nasa2explore/9576396997/in/album-72157657170189075/"
-literal "false"
 
 \end_inset
 
@@ -1031,7 +1021,6 @@ literal "false"
 LatexCommand href
 name "NASA"
 target "https://www.flickr.com/photos/nasa2explore"
-literal "false"
 
 \end_inset
 
@@ -1040,7 +1029,6 @@ literal "false"
 LatexCommand href
 name "CC BY-NC 2.0"
 target "https://creativecommons.org/licenses/by-nc/2.0/"
-literal "false"
 
 \end_inset
 
@@ -1280,7 +1268,6 @@ Se utilizan las ecuaciones para la transmisión en el espacio libre
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-7"
-literal "false"
 
 \end_inset
 
@@ -1290,7 +1277,6 @@ literal "false"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-6"
-literal "false"
 
 \end_inset
 
@@ -1356,7 +1342,6 @@ Estos valores esperados de potencia recibida se corresponden con lo observado
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-8,key-9"
-literal "false"
 
 \end_inset
 
@@ -1373,7 +1358,6 @@ Al tratarse de valores de potencia elevados, una antena utilizada ampliamente
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-10"
-literal "false"
 
 \end_inset
 
@@ -1382,7 +1366,6 @@ literal "false"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
-literal "false"
 
 \end_inset
 
@@ -1429,7 +1412,6 @@ Un factor a considerar es el efecto Doppler producido por las altas velocidades
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-11"
-literal "false"
 
 \end_inset
 
@@ -1564,7 +1546,6 @@ Estaría bueno hacer un modo SSTV más rápido que use más ancho de banda.
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-1"
-literal "false"
 
 \end_inset
 
@@ -1587,7 +1568,6 @@ Image Communication on Short Waves
 LatexCommand bibitem
 label "2"
 key "key-2"
-literal "false"
 
 \end_inset
 
@@ -1615,7 +1595,6 @@ Amateur Radio on the International Space Station – Phase 2 hardware system
 LatexCommand bibitem
 label "3"
 key "key-3"
-literal "false"
 
 \end_inset
 
@@ -1630,7 +1609,11 @@ Antennna Systems and Antenna EVA Status
 \end_inset
 
 .
- http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/\SpecialChar allowbreak
+ http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/
+\begin_inset space \hspace{}
+\length 0dd
+\end_inset
+
 AntennaSystemsEVAStatus
 BauerSamburov.pdf
 \end_layout
@@ -1640,7 +1623,6 @@ BauerSamburov.pdf
 LatexCommand bibitem
 label "4"
 key "key-4"
-literal "false"
 
 \end_inset
 
@@ -1655,7 +1637,11 @@ Double Cross – A NOAA Satellite Downlink Antenna
 \end_inset
 
 .
- https://www.qsl.net/l/lu7did/docs/NOAA/\SpecialChar allowbreak
+ https://www.qsl.net/l/lu7did/docs/NOAA/
+\begin_inset space \hspace{}
+\length 0dd
+\end_inset
+
 DoubleCross_137Mhz%20AntennaMARTES.pdf
 \end_layout
 
@@ -1664,7 +1650,6 @@ DoubleCross_137Mhz%20AntennaMARTES.pdf
 LatexCommand bibitem
 label "5"
 key "key-5"
-literal "false"
 
 \end_inset
 
@@ -1687,7 +1672,6 @@ The PD SSTV modes
 LatexCommand bibitem
 label "6"
 key "key-6"
-literal "false"
 
 \end_inset
 
@@ -1711,7 +1695,6 @@ _uvigo.pdf
 LatexCommand bibitem
 label "7"
 key "key-7"
-literal "false"
 
 \end_inset
 
@@ -1732,7 +1715,6 @@ Calculation of free-space attenuation
 LatexCommand bibitem
 label "8"
 key "key-8"
-literal "false"
 
 \end_inset
 
@@ -1756,7 +1738,6 @@ amic-range/
 LatexCommand bibitem
 label "9"
 key "key-9"
-literal "false"
 
 \end_inset
 
@@ -1780,7 +1761,6 @@ on/
 LatexCommand bibitem
 label "10"
 key "key-10"
-literal "false"
 
 \end_inset
 
@@ -1802,7 +1782,6 @@ l-sdr/
 LatexCommand bibitem
 label "11"
 key "key-11"
-literal "false"
 
 \end_inset
 

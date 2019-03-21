@@ -8,6 +8,14 @@ import sys
 input_file = sys.argv[1]
 output_file = sys.argv[2]
 
+INPUT_RATE = 300e3
+OUTPUT_RATE = 10e3
+
+if INPUT_RATE % OUTPUT_RATE != 0:
+    raise RuntimeError("Tasas de muestreo deben ser multiplos")
+
+DECIMATION_FACTOR = int(INPUT_RATE / OUTPUT_RATE)
+
 def write_complex_sample(filehandle, sample):
     '''
     escribir numero complejo (f32) en un archivo
@@ -47,6 +55,10 @@ def plot(vector1, vector2=None):
 
     pylab.show()
 
+def inc_range(a, b):
+    '''range que incluye al valor final'''
+    return range(a, b+1)
+
 def lowpass(cutout, delta_w, atten):
     '''
     cutout y delta_w en fracciones de pi radianes por segundo.
@@ -81,53 +93,60 @@ def lowpass(cutout, delta_w, atten):
 
     return coeffs
 
-def decimate(input_gen):
+def decimate(input_gen, factor):
     '''
     La derecha del buff tiene la muestra mas reciente y tiene el indice mas alto
+    El factor dice cuanto se va a decimar
     '''
 
-    coeffs = lowpass(RF_FILTER_CUTOUT, RF_FILTER_DELTA_W, RF_FILTER_ATTEN)
+    coeffs = lowpass(1./factor, 1./factor/2, 30)
 
     #  plot(coeffs, numpy.abs(numpy.fft.fft(coeffs)))
 
     buf = collections.deque([0] * len(coeffs))
 
+    count = factor
+
     for s in input_gen:
         buf.popleft()
         buf.append(s)
-        sum = 0
-        for j in range(len(coeffs)):
-            sum += buf[-j - 1] * coeffs[j]
 
-        yield sum
+        count -= 1
 
-with open(input_file, 'rb') as input_file, \
-        open(output_file, 'wb') as output_file:
+        if count == 0:
+            count = factor
+            sum = 0
+            for j in range(len(coeffs)):
+                sum += buf[-j - 1] * coeffs[j]
 
-    i_vec = []
-    q_vec = []
+            yield sum
 
-    while True:
-        data = input_file.read(4*2)
-        if not data:
-            break
-        i, q = struct.unpack('<2f', data)
-        i_vec.append(i)
-        q_vec.append(q)
+def demodulate_from_file(input_file):
 
-    #  prev = 0.0 + 0.0j
-#
-#
-        #  i = s.real
-        #  q = s.imag
-        #  di = s.real - prev.real
-        #  dq = s.imag - prev.imag
-#
-        #  #  print(i**2 + q**2)
-        #  #  print(s)
-        #  freq = (i * dq - q * di) / (i**2 + q**2)
-#
-        #  write_complex_sample(output_file, s)
-        #  #  write_sample(output_file, freq)
-#
-        #  prev = s
+    with open(input_file, 'rb') as input_file:
+
+        prev_i = 0.0
+        prev_q = 0.0
+
+        while True:
+            data = input_file.read(4*2)
+            if not data:
+                break
+            i, q = struct.unpack('<2f', data)
+
+            di = i - prev_i
+            dq = q - prev_q
+
+            try:
+                freq = (i * dq - q * di) / (i**2 + q**2)
+            except ZeroDivisionError:
+                freq = 0
+
+            yield freq
+
+            prev_i = i
+            prev_q = q
+
+with open(output_file, 'wb') as output_file:
+    for s in decimate(demodulate_from_file(input_file), DECIMATION_FACTOR):
+        write_sample(output_file, s)
