@@ -2,33 +2,38 @@ import collections
 import math
 import numpy as np
 
+def mapeadora(value):
+    valor_mapeado = int((value-1500)/800*255)
+    return valor_mapeado
+
 def escribir_pixel(img, columna, linea, canal, valor):
+    '''funcion encargada de escribir pixel por pixel la imagen'''
+
     if linea >= img.height:
-        print('nos pasamo')
         return
     if canal == "lum":
         prev = img.getpixel((columna,linea-1))
-        datapixel = (int((valor-1500)/800*255), prev[1], prev[2])
-        #print(datapixel, valor)
+        datapixel = (mapeadora(valor), prev[1], prev[2])
         img.putpixel((columna,linea-1), datapixel)
     if canal == "cr":
         prev = img.getpixel((columna,linea-1))
         nxt_prev = img.getpixel((columna,linea))
-        datapixel = (prev[0], prev[1], int((valor-1500)/800*255))
-        nxt_datapixel = (nxt_prev[0], nxt_prev[1], int((valor-1500)/800*255))
+        datapixel = (prev[0], prev[1], mapeadora(valor))
+        nxt_datapixel = (nxt_prev[0], nxt_prev[1], mapeadora(valor))
         img.putpixel((columna,linea-1), datapixel)
         img.putpixel((columna,linea), nxt_datapixel)
     if canal == "cb":
         prev = img.getpixel((columna,linea-1))
         nxt_prev = img.getpixel((columna,linea))
-        datapixel = (prev[0], int((valor-1500)/800*255), prev[2])
-        nxt_datapixel = (nxt_prev[0], int((valor-1500)/800*255), nxt_prev[2])
+        datapixel = (prev[0], mapeadora(valor), prev[2])
+        nxt_datapixel = (nxt_prev[0], mapeadora(valor), nxt_prev[2])
         img.putpixel((columna,linea-1), datapixel)
         img.putpixel((columna,linea), nxt_datapixel)
     if canal == "nxt_lum":
         prev = img.getpixel((columna,linea))
-        datapixel = (int((valor-1500)/800*255), prev[1], prev[2])
+        datapixel = (mapeadora(valor), prev[1], prev[2])
         img.putpixel((columna,linea), datapixel)
+
 
 def lowpass(cutout, delta_w, atten):
     '''
@@ -83,15 +88,3 @@ def filtrar(input, cutout, delta_w, atten):
             sum += buf[-j - 1] * coeffs[j]
 
         yield sum
-
-if __name__ == "__main__":
-    from PIL import Image as im
-    imagen = im.new('YCbCr',(300,300),"white")
-
-    for i in range (0,101):
-        escribir_pixel(imagen,i,i+1,"lum",2100)
-        escribir_pixel(imagen,i,i+1,"cr",2300)
-        escribir_pixel(imagen,i,i+1,"cb",1500)
-        escribir_pixel(imagen,i,i+1,"nxt_lum",1800)
-    imgconv = imagen.convert("RGB")
-    imgconv.save("./test.png","PNG")
