@@ -114,24 +114,26 @@ def agregar_ceros(datos_audio, fs_audio, fs_sdr) :
 
 	return vector_datos
 
-def filtrar(ceros) :
+def filtrar(ceros, datos) :
 
 	vector_datos = []
 	filtro = dsp.lowpass(1/(ceros+1),0.1,30)
 
-	vector_datos = np.convolve(vector_ceros,filtro,'full')
+	vector_datos = np.convolve(datos,filtro,'full')
 
 	return vector_datos
 
-def generadora_raw () :
+def generadora_raw (vector_datos, fs_sdr, fc) :
 
 	with open("gqrx_20190319_030431_101324000_{}_fc.raw".format(int(fs)), "wb") as f:
 	    for i in range(len(vector_final)) :
-	        sample = 0.5*np.exp(1j*(2*math.pi*fc*i/fs_sdr+5*(vector_final[i])))
+	        sample = 0.5*np.exp(1j*(2*math.pi*fc*i/fs_sdr+5*(vector_datos[i])))
 
 	        raw_file.write_complex_sample(f, sample)
 
 def main(args):
+
+	
     print(args)
 
     # Codigo para transmision
