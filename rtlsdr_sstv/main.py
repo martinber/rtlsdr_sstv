@@ -103,8 +103,8 @@ parser_tx.add_argument(
 )
 parser_tx.add_argument(
         '--soapy-args', type=str,
-        help=('Argumentos para SoapySDR, generalmente debe usarse '
-              '"driver=lime" o similar. Opcional'),
+        help=('Argumentos para SoapySDR, por defecto: "driver=lime"'),
+        default='driver=lime',
 )
 parser_tx.add_argument(
         '--rf-ant', type=str,
@@ -113,10 +113,9 @@ parser_tx.add_argument(
         default='Auto',
 )
 parser_tx.add_argument(
-        '--rf-gain', type=str,
-        help=('Ganancia de transmisión utilizada en '
-              '`SoapySDRUtil --probe`, por defecto: "Auto"'),
-        default='Auto',
+        '--rf-gain', type=int,
+        help=('Ganancia de transmisión utilizada en dB, por defecto: 20'),
+        default=20,
 )
 parser_tx.add_argument(
         '--tmp-raw', type=str,
