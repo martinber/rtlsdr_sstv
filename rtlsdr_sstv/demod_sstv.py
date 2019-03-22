@@ -60,10 +60,10 @@ def boundary(value):
 
 def inicializar_demod(datos, image_filename, fs):
     img = Image.new('YCbCr', (640,496), "white")
-    signal = crear_analitica(datos, crear_hilbert(40, fs * 2*np.pi / 2000) #frecuencia normalizada
+    signal = crear_analitica(datos, crear_hilbert(40, fs * 2*np.pi / 2000)) #frecuencia normalizada
 
     inst_ph = np.unwrap(np.angle(signal)) #unwrap deja a la fase de forma lineal en vez de rampa
-    inst_fr = (np.diff(inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y lo resta con x(n)
+    inst_fr = np.diff((inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y lo resta con x(n)
 
     inst_fr = list(filtrar(inst_fr, 0.3, 0.2, 30)) #toma senal, frec corte, banda de trans, y caida en dB
 

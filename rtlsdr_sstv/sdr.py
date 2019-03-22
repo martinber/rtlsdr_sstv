@@ -1,6 +1,8 @@
 import SoapySDR
 from SoapySDR import * # SOAPY_SDR_ constants
-import numpy
+import numpy as np
+import math
+import time, signal
 
 class Sdr:
 
@@ -45,7 +47,7 @@ class Sdr:
         self.sdr.activateStream(self.rxStream) #start streaming
 
         #create a re-usable buffer for rx samples
-        self.buff = numpy.array([0]*1024, numpy.complex64)
+        self.buff = np.array([0]*1024, np.complex64)
 
         return self._generator
 
