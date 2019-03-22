@@ -1,6 +1,7 @@
 from sdr import Sdr
 import raw_file
 import dsp
+import demod_sstv
 
 import signal
 import struct
@@ -37,7 +38,7 @@ def main(args):
 
     print("Demodulando SSTV...")
 
-    sstv_demod(sstv_signal, args.image, args.audio_rate)
+    inicializar_demod(sstv_signal, args.image, args.audio_rate)
 
 
 
@@ -141,7 +142,3 @@ def decimate(samples, input_rate, output_rate):
             output.append(sum)
 
     return output
-
-
-def sstv_demod(signal, image_filename, rate):
-    pass

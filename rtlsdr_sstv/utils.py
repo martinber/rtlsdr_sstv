@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 def mapeadora(value):
-    valor_mapeado = int((value-1500) / 800*255)
+    valor_mapeado = int((value-1500)/800*255)
     return valor_mapeado
 
 def escribir_pixel(img, columna, linea, canal, valor):
@@ -11,12 +11,10 @@ def escribir_pixel(img, columna, linea, canal, valor):
 
     if linea >= img.height:
         return
-
     if canal == "lum":
         prev = img.getpixel((columna,linea-1))
         datapixel = (mapeadora(valor), prev[1], prev[2])
         img.putpixel((columna,linea-1), datapixel)
-
     if canal == "cr":
         prev = img.getpixel((columna,linea-1))
         nxt_prev = img.getpixel((columna,linea))
@@ -24,7 +22,6 @@ def escribir_pixel(img, columna, linea, canal, valor):
         nxt_datapixel = (nxt_prev[0], nxt_prev[1], mapeadora(valor))
         img.putpixel((columna,linea-1), datapixel)
         img.putpixel((columna,linea), nxt_datapixel)
-
     if canal == "cb":
         prev = img.getpixel((columna,linea-1))
         nxt_prev = img.getpixel((columna,linea))
@@ -32,7 +29,6 @@ def escribir_pixel(img, columna, linea, canal, valor):
         nxt_datapixel = (nxt_prev[0], mapeadora(valor), nxt_prev[2])
         img.putpixel((columna,linea-1), datapixel)
         img.putpixel((columna,linea), nxt_datapixel)
-
     if canal == "nxt_lum":
         prev = img.getpixel((columna,linea))
         datapixel = (mapeadora(valor), prev[1], prev[2])
