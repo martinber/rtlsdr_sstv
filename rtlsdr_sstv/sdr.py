@@ -55,9 +55,22 @@ class Sdr:
         #shutdown the stream
         self.sdr.deactivateStream(self.rxStream) #stop streaming
         self.sdr.closeStream(self.rxStream)
-
+def read_raw_samples(input_file, buf, num):
+    '''
+    Leer como maximo num muestras de un archivo, guardarlas en un
+    buffer buf, y devolver la cantidad de muestras leidas
+    '''
+    for i in range(num):
+        bytes = input_file.read(2*4) # 2 floats de 4 bytes
+        if len(bytes) = 2*4:
+            i, q = struct.unpack('<2f', bytes)
+            buf[i] = i + 1j * q
+        else:
+            return i
+    return i + 1
 
 def siggen_app(
+        filename,
         args,
         rate,
         ampl=0.7,
@@ -107,10 +120,9 @@ def siggen_app(
     tx_stream = sdr.setupStream(SOAPY_SDR_TX, SOAPY_SDR_CF32, [tx_chan])
     print("Activate Tx Stream")
     sdr.activateStream(tx_stream)
-    phase_acc = 0
-    phase_inc = 2*math.pi*wave_freq/rate
+
     stream_mtu = sdr.getStreamMTU(tx_stream)
-    samps_chan = np.array([ampl]*stream_mtu, np.complex64)
+    buf = np.array([0]*stream_mtu, np.complex64)
 
     time_last_print = time.time()
     total_samps = 0
@@ -123,24 +135,26 @@ def siggen_app(
 
     signal.signal(signal.SIGINT, signal_handler)
 
-    while state['running']:
-        phase_acc_next = phase_acc + stream_mtu*phase_inc
-        phases = np.linspace(phase_acc, phase_acc_next, stream_mtu)
-        samps_chan = ampl*np.exp(1j * phases).astype(np.complex64)
-        phase_acc = phase_acc_next
-        while phase_acc > math.pi * 2:
-            phase_acc -= math.pi * 2
+    with open(filename, 'rb') as input_file:
 
-        status = sdr.writeStream(tx_stream, [samps_chan], samps_chan.size, timeoutUs=1000000)
-        if status.ret != samps_chan.size:
-            raise Exception("Expected writeStream() to consume all samples! %d" % status.ret)
-        total_samps += status.ret
+        while True:
 
-        if time.time() > time_last_print + 5.0:
-            rate = total_samps / (time.time() - time_last_print) / 1e6
-            print("Python siggen rate: %f Msps" % rate)
-            total_samps = 0
-            time_last_print = time.time()
+            num = read_raw_samples(input_file, buf, stream_mtu)
+
+            status = sdr.writeStream(tx_stream, [buf], num, timeoutUs=1000000)
+            if status.ret != num:
+                raise Exception("Expected writeStream() to consume all samples! %d" % status.ret)
+            total_samps += status.ret
+
+            if time.time() > time_last_print + 5.0:
+                rate = total_samps / (time.time() - time_last_print) / 1e6
+                print("Python siggen rate: %f Msps" % rate)
+                total_samps = 0
+                time_last_print = time.time()
+
+            if num < stream_mtu:
+                print("Terminado")
+                break
 
     #cleanup streams
     print("Cleanup stream")
