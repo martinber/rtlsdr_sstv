@@ -160,5 +160,6 @@ def main(args):
 		freq=args.rf_freq,
 		tx_ant=args.rf_ant,
 		tx_gain=args.rf_gain,
+		tx_bw=5e6,
 	)
     # Codigo para transmision
