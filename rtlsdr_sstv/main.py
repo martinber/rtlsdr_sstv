@@ -20,7 +20,11 @@ Argumentos leidos en RX:
 Argumentos leidos en TX:
 
 - `args.sstv_wav`: str o None si no se guarda el WAV.
-
+- `args.soapy_args`: str.
+- `args.rf_ant`: str.
+- `args.rf_gain`: int.
+- `args.tmp_raw`: str.
+- `args.demod_raw`: str o None si no se guarda el RAW.
 '''
 
 import argparse
@@ -97,8 +101,33 @@ parser_tx.add_argument(
         help=('Nombre archivo WAV en donde guardar el SSTV generado, opcional'),
         default=None,
 )
-
-#
+parser_tx.add_argument(
+        '--soapy-args', type=str,
+        help=('Argumentos para SoapySDR, por defecto: "driver=lime"'),
+        default='driver=lime',
+)
+parser_tx.add_argument(
+        '--rf-ant', type=str,
+        help=('Antena a utilizar, ver las posibles usando '
+              '`SoapySDRUtil --probe`, por defecto: "Auto"'),
+        default='Auto',
+)
+parser_tx.add_argument(
+        '--rf-gain', type=int,
+        help=('Ganancia de transmisión utilizada en dB, por defecto: 20'),
+        default=20,
+)
+parser_tx.add_argument(
+        '--tmp-raw', type=str,
+        help=('Nombre de archivo RAW temporal en donde guardar muestras '
+              'a transmitir'),
+        default='./tmp_rx.raw',
+)
+parser_tx.add_argument(
+        '--from-tmp-raw', action='store_true',
+        help=('Transmitir muestras previamente moduladas en un archivo RAW '
+              'temporal'),
+)
 
 args = parser.parse_args()
 
@@ -108,4 +137,3 @@ elif args.comando == 'tx':
     transmision.main(args)
 else:
     RuntimeError('Comando desconocido')
-

@@ -1,5 +1,5 @@
 #LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -29,6 +29,8 @@ todonotes
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -71,6 +73,7 @@ todonotes
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -79,7 +82,10 @@ todonotes
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language french
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style swiss
+\dynamic_quotes 0
 \papercolumns 2
 \papersides 1
 \paperpagestyle default
@@ -711,6 +717,13 @@ Para la implementación utilizamos nuestro propio programa hecho en Python,
 
 \end_layout
 
+\begin_layout Standard
+El dispositivo transmisor es un LimeSDR Mini mientras que el receptor es
+ RTLSDR, como antenas utilizamos simplemente alambres ya que el receptor
+ y transmisor esuvieron separados unos pocos metros.
+ Para la implementación utilizamos Python y la librería SoapySDR.
+\end_layout
+
 \begin_layout Subsection
 Modulación
 \end_layout
@@ -743,6 +756,10 @@ Finalmente se realiza una modulación más en FM utilizando como portadora
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+El programa realiza los siguientes pasos para la modulación:
 \end_layout
 
 \begin_layout Subsection
@@ -906,6 +923,7 @@ status open
 LatexCommand href
 name "Radio Kenwood D700"
 target "https://www.flickr.com/photos/nasa2explore/9561855037/in/photolist-fyX1nB-fzcicw-fyXaAn-fqTWap-fzbG9d-fzcuAL-fyWos4-fqfoQ8-fyXfgZ-fzbGGJ-fzctAb-fzciW9-fzcBw5-fzcxRm-fzctTC-fzcAM9-fyXboT-fzcgC3-fyWo5r-fzcjfE-fyXeQx-fyXfo2-fyX1H8-fzbFHw-fyX2e4-fzcty9-fzciKy-fzbGCC-fyX1yD-fyX18n-fyXfbv-fqfoPv-fzcBjJ-fyWZUP-fzctXW-fzctUY-fzcitj-fzbNYy-fAjAu1-fzbGEL-fzcxRs-fzcjjW-fzcjxb-fyXgKK-fyWo4k-fyX242-fyWp4r-fzczDm-fyXf3H-fyXbtT"
+literal "false"
 
 \end_inset
 
@@ -915,6 +933,7 @@ target "https://www.flickr.com/photos/nasa2explore/9561855037/in/photolist-fyX1n
 LatexCommand href
 name "NASA"
 target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
 
 \end_inset
 
@@ -923,6 +942,7 @@ target "https://www.flickr.com/photos/nasa2explore"
 LatexCommand href
 name "CC BY-NC 2.0"
 target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
 
 \end_inset
 
@@ -966,6 +986,7 @@ Antenas VHF/UHF.
 \begin_inset CommandInset href
 LatexCommand href
 target "http://amsat.org"
+literal "false"
 
 \end_inset
 
@@ -1012,6 +1033,7 @@ status open
 LatexCommand href
 name "Foto de una de las antenas colocadas (tomada años después de su instalación)"
 target "https://www.flickr.com/photos/nasa2explore/9576396997/in/album-72157657170189075/"
+literal "false"
 
 \end_inset
 
@@ -1021,6 +1043,7 @@ target "https://www.flickr.com/photos/nasa2explore/9576396997/in/album-721576571
 LatexCommand href
 name "NASA"
 target "https://www.flickr.com/photos/nasa2explore"
+literal "false"
 
 \end_inset
 
@@ -1029,6 +1052,7 @@ target "https://www.flickr.com/photos/nasa2explore"
 LatexCommand href
 name "CC BY-NC 2.0"
 target "https://creativecommons.org/licenses/by-nc/2.0/"
+literal "false"
 
 \end_inset
 
@@ -1268,6 +1292,7 @@ Se utilizan las ecuaciones para la transmisión en el espacio libre
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-7"
+literal "true"
 
 \end_inset
 
@@ -1277,6 +1302,7 @@ key "key-7"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-6"
+literal "true"
 
 \end_inset
 
@@ -1342,6 +1368,7 @@ Estos valores esperados de potencia recibida se corresponden con lo observado
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-8,key-9"
+literal "true"
 
 \end_inset
 
@@ -1358,6 +1385,7 @@ Al tratarse de valores de potencia elevados, una antena utilizada ampliamente
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-10"
+literal "true"
 
 \end_inset
 
@@ -1366,6 +1394,7 @@ key "key-10"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-4"
+literal "true"
 
 \end_inset
 
@@ -1412,6 +1441,7 @@ Un factor a considerar es el efecto Doppler producido por las altas velocidades
 \begin_inset CommandInset citation
 LatexCommand cite
 key "key-11"
+literal "true"
 
 \end_inset
 
@@ -1546,17 +1576,18 @@ Estaría bueno hacer un modo SSTV más rápido que use más ancho de banda.
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "key-1"
+literal "true"
 
 \end_inset
 
 M.
  Bruchanov.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Image Communication on Short Waves
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1568,6 +1599,7 @@ Image Communication on Short Waves
 LatexCommand bibitem
 label "2"
 key "key-2"
+literal "true"
 
 \end_inset
 
@@ -1579,11 +1611,11 @@ F.
  Bruninga and H.
  Watarikawa.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Amateur Radio on the International Space Station – Phase 2 hardware system
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1595,25 +1627,22 @@ Amateur Radio on the International Space Station – Phase 2 hardware system
 LatexCommand bibitem
 label "3"
 key "key-3"
+literal "true"
 
 \end_inset
 
 G.
  Bauer, S Samburov.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Antennna Systems and Antenna EVA Status
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
- http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/
-\begin_inset space \hspace{}
-\length 0dd
-\end_inset
-
+ http://www.amsat.org/amsat/ariss/Meetings/CSA02/ThursApr4/\SpecialChar allowbreak
 AntennaSystemsEVAStatus
 BauerSamburov.pdf
 \end_layout
@@ -1623,25 +1652,22 @@ BauerSamburov.pdf
 LatexCommand bibitem
 label "4"
 key "key-4"
+literal "true"
 
 \end_inset
 
 G.
  Martes.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Double Cross – A NOAA Satellite Downlink Antenna
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
- https://www.qsl.net/l/lu7did/docs/NOAA/
-\begin_inset space \hspace{}
-\length 0dd
-\end_inset
-
+ https://www.qsl.net/l/lu7did/docs/NOAA/\SpecialChar allowbreak
 DoubleCross_137Mhz%20AntennaMARTES.pdf
 \end_layout
 
@@ -1650,17 +1676,18 @@ DoubleCross_137Mhz%20AntennaMARTES.pdf
 LatexCommand bibitem
 label "5"
 key "key-5"
+literal "true"
 
 \end_inset
 
 P.
  Turner.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 The PD SSTV modes
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1672,17 +1699,18 @@ The PD SSTV modes
 LatexCommand bibitem
 label "6"
 key "key-6"
+literal "true"
 
 \end_inset
 
 M.
  Arias.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Small Satellite Link Budget Calculation
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1695,16 +1723,17 @@ _uvigo.pdf
 LatexCommand bibitem
 label "7"
 key "key-7"
+literal "true"
 
 \end_inset
 
 ITU-R P.525-3.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Calculation of free-space attenuation
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 
@@ -1715,17 +1744,18 @@ Calculation of free-space attenuation
 LatexCommand bibitem
 label "8"
 key "key-8"
+literal "true"
 
 \end_inset
 
 S.
  Schrödle.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 R820T, RTL2832U SDR USB stick – sensitivity, dynamic range
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1738,16 +1768,17 @@ amic-range/
 LatexCommand bibitem
 label "9"
 key "key-9"
+literal "true"
 
 \end_inset
 
 HB9AJG.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Measurements on RTL-SDR E4000 and R820T DVB-T Dongles
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1761,15 +1792,16 @@ on/
 LatexCommand bibitem
 label "10"
 key "key-10"
+literal "true"
 
 \end_inset
 
 
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Receiving SSTV Images from the ISS with a V-Dipole and RTL-SDR
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
 .
@@ -1782,17 +1814,18 @@ l-sdr/
 LatexCommand bibitem
 label "11"
 key "key-11"
+literal "true"
 
 \end_inset
 
 R.
  Hashiro.
  
-\begin_inset Quotes fld
+\begin_inset Quotes cld
 \end_inset
 
 Compensating for Doppler Shift When Contacting the ISS
-\begin_inset Quotes frd
+\begin_inset Quotes crd
 \end_inset
 
  .https://www.qsl.net/ah6rh/am-radio/spacecomm/doppler-and-the-iss.html

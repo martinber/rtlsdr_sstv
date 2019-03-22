@@ -8,8 +8,12 @@ import numpy as np
 from scipy.io import wavfile
 import dsp
 import raw_file
+import SoapySDR
+from SoapySDR import * #SOAPY_SDR_ constants
 
-def audiogen(filenamein,frec_sample,wavnameout):
+import sdr
+
+def audiogen(filename, audio_rate, wavnameout):
 	imagen = Image.open(filename) #importa la imagen introduciendo el path hacia la misma
 	im_re = imagen.resize((640,496), Image.BICUBIC) #reacomoda la imagen para que quede del tamaño deseado
 	imagen2 = im_re.convert('YCbCr') #Transformacion al formato deseado para la transmision
@@ -29,7 +33,7 @@ def audiogen(filenamein,frec_sample,wavnameout):
 	filas = []
 
 	#fs = frec_sample
-	ts = 1/frec_sample
+	ts = 1/audio_rate
 
 	fsinc = 1200 #frecuencia y tiempo de sincronización, que se envía al principio de cada línea de píxeles
 	tsinc = 0.02
@@ -42,7 +46,7 @@ def audiogen(filenamein,frec_sample,wavnameout):
 		for j in range(ancho) :
 			fila.append(imagen2.getpixel((j,i))) #se obtienen los píxeles de la imagen
 
-	filas.append(fila)
+		filas.append(fila)
 
 	frec = []
 
@@ -63,12 +67,12 @@ def audiogen(filenamein,frec_sample,wavnameout):
 	audio = wave.open(wavnameout,"wb")
 	audio.setnchannels(1) # mono
 	audio.setsampwidth(2) #2 bytes
-	audio.setframerate(fs) #frecuencia de muestreo
+	audio.setframerate(audio_rate) #frecuencia de muestreo
 	datos = 0
 	muestras = 0
 	offset = 0
 	for i, s in frec :
-		muestras += s * fs
+		muestras += s * audio_rate
 		x = int(muestras)
 
 		for k in range(x) :
@@ -82,7 +86,7 @@ def audiogen(filenamein,frec_sample,wavnameout):
 
 	audio.writeframes(b'')
 	audio.close()
-	return audio
+	#return audio
 
 def conv_frec (valor_pixel) :
 
@@ -95,24 +99,23 @@ def conv_frec (valor_pixel) :
 
 	return valor
 
-#def señal_modulada(audio,frec_carrier):
-
-#	frec_sample_audio, data = wavfile.read("arcoiris.wav")
-
-#	fc= 50000
-#	fs_sdr= 4*fc
 
 def agregar_ceros(datos_audio, fs_audio, fs_sdr) :
 
-	ceros = int(fs_sdr/frec_audio)-1
+	data = []
+
+	for i in (datos_audio) :
+	    data.append(i/32767)
+
+	ceros = int(fs_sdr/fs_audio)-1
 	vector_datos = []
 
-	for i in vector_data:
+	for i in data:
 	    vector_datos.append(i)
 	    for i in range(ceros):
 	        vector_datos.append(0)
 
-	return vector_datos
+	return vector_datos, ceros
 
 def filtrar(ceros, datos) :
 
@@ -123,17 +126,39 @@ def filtrar(ceros, datos) :
 
 	return vector_datos
 
-def generadora_raw (vector_datos, fs_sdr, fc) :
+def generadora_raw (vector_datos, fs_sdr) :
 
-	with open("gqrx_20190319_030431_101324000_{}_fc.raw".format(int(fs)), "wb") as f:
-	    for i in range(len(vector_final)) :
+	fc = 10000
+	with open("gqrx_20190319_030431_101324000_{}_fc.raw".format(int(fs_sdr)), "wb") as f:
+	    for i in range(len(vector_datos)) :
 	        sample = 0.5*np.exp(1j*(2*math.pi*fc*i/fs_sdr+5*(vector_datos[i])))
 
 	        raw_file.write_complex_sample(f, sample)
 
+
 def main(args):
+	#args.image #contiene el nombre de archivo de la imagen
+	#args.audio_rate
+	#args.rf_rate #tasa de muestreo del sdr
+	#args.rf_freq
+	if not args.from_tmp_raw :
+		audiogen(args.image, args.audio_rate, "audio.wav")
 
-	
-    print(args)
+		fs_audio, data = wavfile.read("audio.wav")
 
+		señal_interpolada, ceros = agregar_ceros(data, fs_audio, args.rf_rate)
+
+		señal_filtrada = filtrar(ceros, señal_interpolada)
+
+		generadora_raw(señal_filtrada, args.rf_rate)
+
+
+
+	sdr.siggen_app(
+		args=args.soapy_args,
+		rate=args.rf_rate,
+		freq=args.rf_freq,
+		tx_ant=args.rf_ant,
+		tx_gain=args.rf_gain,
+	)
     # Codigo para transmision

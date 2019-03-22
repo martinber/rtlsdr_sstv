@@ -1,59 +1,21 @@
+#!/usr/bin/env python
+"""Simple signal generator for testing transmit
+Continuously output a carrier with single sideband sinusoid amplitude
+modulation.
+Terminate with cntl-C.
+"""
+
+import argparse
+import math
+import signal
+import time
+
+import numpy as np
+
 import SoapySDR
-from SoapySDR import * # SOAPY_SDR_ constants
-import numpy
+from SoapySDR import * #SOAPY_SDR_ constants
 
-class Sdr:
-
-    def __init__(self, sample_rate, carrier_freq, bandwidth):
-        self.sample_rate = sample_rate
-        self.carrier_freq = carrier_freq
-        self.bandwidth = bandwidth
-
-    def _generator(self):
-        #receive some samples
-        while True:
-            sr = self.sdr.readStream(self.rxStream, [self.buff], len(self.buff))
-            #  print(sr.ret) #num samples or error code
-            #  print(sr.flags) #flags set by receive operation
-            #  print(sr.timeNs) #timestamp for receive buffer
-            for s in self.buff:
-                yield s
-
-    def __enter__(self):
-        #enumerate devices
-        #  results = SoapySDR.Device.enumerate()
-        #  for result in results: print(result)
-
-        #create device instance
-        #args can be user defined or from the enumeration result
-        args = dict(driver="rtlsdr")
-        self.sdr = SoapySDR.Device(args)
-
-        #query device info
-        #  print(self.sdr.listAntennas(SOAPY_SDR_RX, 0))
-        #  print(self.sdr.listGains(SOAPY_SDR_RX, 0))
-        freqs = self.sdr.getFrequencyRange(SOAPY_SDR_RX, 0)
-        #  for freqRange in freqs: print(freqRange)
-
-        #apply settings
-        self.sdr.setSampleRate(SOAPY_SDR_RX, 0, self.sample_rate)
-        self.sdr.setFrequency(SOAPY_SDR_RX, 0, self.carrier_freq)
-        self.sdr.setBandwidth(SOAPY_SDR_RX, 0, self.bandwidth)
-
-        #setup a stream (complex floats)
-        self.rxStream = self.sdr.setupStream(SOAPY_SDR_RX, SOAPY_SDR_CF32)
-        self.sdr.activateStream(self.rxStream) #start streaming
-
-        #create a re-usable buffer for rx samples
-        self.buff = numpy.array([0]*1024, numpy.complex64)
-
-        return self._generator
-
-    def __exit__(self, type, value, traceback):
-        #shutdown the stream
-        self.sdr.deactivateStream(self.rxStream) #stop streaming
-        self.sdr.closeStream(self.rxStream)
-
+import soapy_log_handle
 
 def siggen_app(
         args,
@@ -145,3 +107,50 @@ def siggen_app(
     sdr.deactivateStream(tx_stream)
     sdr.closeStream(tx_stream)
     print("Done!")
+
+def main():
+    """Parse command line arguments and start sig-gen."""
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    parser.add_argument("--args", type=str, help="device factor arguments", default="")
+    parser.add_argument("--rate", type=float, help="Tx and Rx sample rate", default=1e6)
+    parser.add_argument("--ampl", type=float, help="Tx digital amplitude rate", default=0.7)
+    parser.add_argument("--tx-ant", type=str, help="Optional Tx antenna")
+    parser.add_argument("--tx-gain", type=float, help="Optional Tx gain (dB)")
+    parser.add_argument("--tx-chan", type=int, help="Transmitter channel (def=0)", default=0)
+    parser.add_argument("--freq", type=float, help="Optional Tx and Rx freq (Hz)")
+    parser.add_argument("--tx-bw", type=float, help="Optional Tx filter bw (Hz)", default=5e6)
+    parser.add_argument("--wave-freq", type=float, help="Baseband waveform freq (Hz)")
+    parser.add_argument("--clock-rate", type=float, help="Optional clock rate (Hz)")
+    parser.add_argument("--debug", action='store_true', help="Output debug messages")
+    parser.add_argument(
+        "--abort-on-error", action='store_true',
+        help="Halts operations if the SDR logs an error")
+
+    options = parser.parse_args()
+
+    if options.abort_on_error:
+        exception_level = SOAPY_SDR_WARNING
+    else:
+        exception_level = None
+    soapy_log_handle.set_python_log_handler(exception_level=exception_level)
+    if options.debug:
+        SoapySDR.setLogLevel(SOAPY_SDR_DEBUG)
+
+    siggen_app(
+        args=options.args,
+        rate=options.rate,
+        ampl=options.ampl,
+        freq=options.freq,
+        tx_bw=options.tx_bw,
+        tx_ant=options.tx_ant,
+        tx_gain=options.tx_gain,
+        tx_chan=options.tx_chan,
+        clock_rate=options.clock_rate,
+        wave_freq=options.wave_freq,
+    )
+
+if __name__ == '__main__':
+    main()
