@@ -4,10 +4,6 @@ import matplotlib.pyplot as plt
 import pylab
 from resizeimage import resizeimage
 import sys
-import numpy as np
-from scipy.io import wavfile
-import dsp
-import raw_file
 
 def audiogen(filenamein,frec_sample,wavnameout):
 	imagen = Image.open(filename) #importa la imagen introduciendo el path hacia la misma
@@ -28,8 +24,8 @@ def audiogen(filenamein,frec_sample,wavnameout):
 
 	filas = []
 
-	#fs = frec_sample
-	ts = 1/frec_sample
+	fs = frec_sample
+	ts = 1/fs
 
 	fsinc = 1200 #frecuencia y tiempo de sincronización, que se envía al principio de cada línea de píxeles
 	tsinc = 0.02
@@ -82,58 +78,8 @@ def audiogen(filenamein,frec_sample,wavnameout):
 
 	audio.writeframes(b'')
 	audio.close()
-	return audio
 
 def conv_frec (valor_pixel) :
-
-	frec_negro = 1500
-	frec_blanco = 2300
-	rango = frec_blanco - frec_negro
-	max_valor = 255
-
 	valor = int(frec_negro + valor_pixel * rango/max_valor) #calcula la frecuencia que tiene cada valor de cada pixel
 
 	return valor
-
-#def señal_modulada(audio,frec_carrier):
-
-#	frec_sample_audio, data = wavfile.read("arcoiris.wav")
-
-#	fc= 50000
-#	fs_sdr= 4*fc
-
-def agregar_ceros(datos_audio, fs_audio, fs_sdr) :
-
-	ceros = int(fs_sdr/frec_audio)-1
-	vector_datos = []
-
-	for i in vector_data:
-	    vector_datos.append(i)
-	    for i in range(ceros):
-	        vector_datos.append(0)
-
-	return vector_datos
-
-def filtrar(ceros, datos) :
-
-	vector_datos = []
-	filtro = dsp.lowpass(1/(ceros+1),0.1,30)
-
-	vector_datos = np.convolve(datos,filtro,'full')
-
-	return vector_datos
-
-def generadora_raw (vector_datos, fs_sdr, fc) :
-
-	with open("gqrx_20190319_030431_101324000_{}_fc.raw".format(int(fs)), "wb") as f:
-	    for i in range(len(vector_final)) :
-	        sample = 0.5*np.exp(1j*(2*math.pi*fc*i/fs_sdr+5*(vector_datos[i])))
-
-	        raw_file.write_complex_sample(f, sample)
-
-def main(args):
-
-	
-    print(args)
-
-    # Codigo para transmision
