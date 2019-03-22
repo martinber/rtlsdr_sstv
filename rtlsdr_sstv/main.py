@@ -23,6 +23,7 @@ Argumentos leidos en TX:
 - `args.soapy_args`: str.
 - `args.rf_ant`: str.
 - `args.rf_gain`: int.
+- `args.mod_gain`: int.
 - `args.tmp_raw`: str.
 - `args.demod_raw`: str o None si no se guarda el RAW.
 '''
@@ -116,6 +117,12 @@ parser_tx.add_argument(
         '--rf-gain', type=int,
         help=('Ganancia de transmisión utilizada en dB, por defecto: 20'),
         default=20,
+)
+parser_tx.add_argument(
+        '--mod-gain', type=float,
+        help=('Ganancia de modulación, influye en el índice de modulación de '
+              'FM, por defecto: 10'),
+        default=10,
 )
 parser_tx.add_argument(
         '--tmp-raw', type=str,

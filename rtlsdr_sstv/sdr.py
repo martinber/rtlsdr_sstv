@@ -3,6 +3,7 @@ from SoapySDR import * # SOAPY_SDR_ constants
 import numpy as np
 import math
 import time, signal
+import struct
 
 class Sdr:
 
@@ -55,19 +56,21 @@ class Sdr:
         #shutdown the stream
         self.sdr.deactivateStream(self.rxStream) #stop streaming
         self.sdr.closeStream(self.rxStream)
+
+
 def read_raw_samples(input_file, buf, num):
     '''
     Leer como maximo num muestras de un archivo, guardarlas en un
     buffer buf, y devolver la cantidad de muestras leidas
     '''
-    for i in range(num):
+    for n in range(num):
         bytes = input_file.read(2*4) # 2 floats de 4 bytes
-        if len(bytes) = 2*4:
+        if len(bytes) == 2*4:
             i, q = struct.unpack('<2f', bytes)
-            buf[i] = i + 1j * q
+            buf[n] = i + 1j * q
         else:
-            return i
-    return i + 1
+            return n
+    return n + 1
 
 def siggen_app(
         filename,
@@ -137,7 +140,7 @@ def siggen_app(
 
     with open(filename, 'rb') as input_file:
 
-        while True:
+        while state['running']:
 
             num = read_raw_samples(input_file, buf, stream_mtu)
 

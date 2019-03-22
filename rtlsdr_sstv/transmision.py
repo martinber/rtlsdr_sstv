@@ -126,14 +126,14 @@ def filtrar(ceros, datos) :
 
 	return vector_datos
 
-def generadora_raw (vector_datos, filename, fs_sdr) :
+def generadora_raw (vector_datos, filename, fs_sdr, mod_gain) :
 
 	fc = 10000
-	    for i in range(len(vector_datos)) :
-			with open(filename, "wb") as f:
-	        sample = 0.5*np.exp(1j*(2*math.pi*fc*i/fs_sdr+5*(vector_datos[i])))
+	with open(filename, "wb") as f:
+		for i in range(len(vector_datos)) :
+			sample = 0.75*np.exp(1j*(2*math.pi*fc*i/fs_sdr+mod_gain*(vector_datos[i])))
 
-	        raw_file.write_complex_sample(f, sample)
+			raw_file.write_complex_sample(f, sample)
 
 
 def main(args):
@@ -150,7 +150,7 @@ def main(args):
 
 		señal_filtrada = filtrar(ceros, señal_interpolada)
 
-		generadora_raw(señal_filtrada, args.tmp_raw, args.rf_rate)
+		generadora_raw(señal_filtrada, args.tmp_raw, args.rf_rate, args.mod_gain)
 
 
 
@@ -163,4 +163,4 @@ def main(args):
 		tx_bw=5e6,
 		filename=args.tmp_raw
 	)
-    # Codigo para transmision
+# Codigo para transmision
