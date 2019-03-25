@@ -128,7 +128,7 @@ parser_tx.add_argument(
         '--tmp-raw', type=str,
         help=('Nombre de archivo RAW temporal en donde guardar muestras '
               'a transmitir'),
-        default='./tmp_rx.raw',
+        default='./tmp_tx.raw',
 )
 parser_tx.add_argument(
         '--from-tmp-raw', action='store_true',
