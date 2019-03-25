@@ -106,4 +106,4 @@ def inicializar_demod(datos, image_filename, fs):
         i += 1
 
     imgrgb = img.convert("RGB")
-    imgrgb.save(imagen_filename, "PNG")
+    imgrgb.save(image_filename, "PNG")

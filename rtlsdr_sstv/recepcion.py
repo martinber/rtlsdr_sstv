@@ -9,36 +9,56 @@ import struct
 RF_BANDWIDTH = 180e3
 
 def main(args):
-    print(args)
 
-    if not args.from_tmp_raw:
+    if not args.from_demod_raw:
 
-        print("Recibiendo muestras desde SDR...")
+        if not args.from_tmp_raw:
 
-        print("Archivo temporal: {}", args.tmp_raw)
-        print("Frecuencia: {}", args.rf_freq)
-        print("Tasa de muestreo: {}", args.rf_rate)
-        print("Presione Ctrl-C para parar la recepción..,")
+            print("Recibiendo muestras desde SDR...")
 
-        sdr_to_raw(args.tmp_raw, args.rf_freq, args.rf_rate)
+            print("Archivo temporal: {}", args.tmp_raw)
+            print("Frecuencia: {}", args.rf_freq)
+            print("Tasa de muestreo: {}", args.rf_rate)
+            print("Presione Ctrl-C para parar la recepción..,")
 
-    print("Demodulando FM...")
+            sdr_to_raw(args.tmp_raw, args.rf_freq, args.rf_rate)
 
-    sstv_signal = list(raw_demod(args.tmp_raw, args.fm_demod_gain))
+        print("Demodulando FM...")
 
-    print("Diezmando...")
+        sstv_signal = list(raw_demod(args.tmp_raw, args.fm_demod_gain))
 
-    sstv_signal = decimate(sstv_signal, args.rf_rate, args.audio_rate)
+        print("Diezmando...")
 
-    # Si se eligió la opción para exportar archivo RAW demodulado
-    if args.demod_raw:
-        with open(args.demod_raw, 'wb') as output_file:
-            for s in sstv_signal:
-                raw_file.write_sample(output_file, s)
+        sstv_signal = decimate(sstv_signal, args.rf_rate, args.audio_rate)
+
+        print("Normalizando...")
+
+        sstv_signal = normalize(sstv_signal)
+
+        # Si se eligió la opción para exportar archivo RAW demodulado
+        if args.demod_raw:
+            with open(args.demod_raw, 'wb') as output_file:
+                for s in sstv_signal:
+                    raw_file.write_sample(output_file, s)
+
+    else:
+        sstv_signal = []
+
+        with open(args.demod_raw, 'rb') as input_file:
+
+            while True:
+                data = input_file.read(4) # 4 bytes (float)
+                if not data:
+                    break
+
+                # Devuelve un tuple de un unico elemento
+                sample = struct.unpack('<f', data)[0]
+
+                sstv_signal.append(sample)
 
     print("Demodulando SSTV...")
 
-    inicializar_demod(sstv_signal, args.image, args.audio_rate)
+    demod_sstv.inicializar_demod(sstv_signal, args.image, args.audio_rate)
 
 
 
@@ -142,3 +162,15 @@ def decimate(samples, input_rate, output_rate):
             output.append(sum)
 
     return output
+
+def normalize(sstv_signal):
+
+    _sum = sum(sstv_signal)
+    _max = max(sstv_signal)
+    _min = min(sstv_signal)
+    _len = len(sstv_signal)
+    _range = (_max - _min) / 2
+
+    average = _sum / _len
+
+    return list(map(lambda s: (s - average) / _range, sstv_signal))

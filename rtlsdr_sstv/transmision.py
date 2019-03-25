@@ -134,16 +134,8 @@ def generadora_raw (vector_datos, filename, fs_sdr, mod_gain) :
     b = 1j*mod_gain
     with open(filename, "wb") as f:
         for i in range(len(vector_datos)) :
-            #  print(2*math.pi*(fc+mod_gain*(vector_datos[i]))/fs_sdr)
-            #  sample = 0.75*np.exp(1j*(2*math.pi*(fc+mod_gain*(vector_datos[i]))*i/fs_sdr))
 
-            #  sample = 0.75*np.exp(1j*(2*math.pi*fc*i/fs_sdr+mod_gain*(vector_datos[i])))
             sample = 0.75*np.exp(a*i + b*vector_datos[i])
-
-            #  sample = 0.75 * (
-                #  np.cos(2 * math.pi * fc * i / fs_sdr + mod_gain * vector_datos[i]) +
-                #  1j * np.sin(2 * math.pi * fc * i / fs_sdr + mod_gain * vector_datos[i])
-            #  )
 
             raw_file.write_complex_sample(f, sample)
 

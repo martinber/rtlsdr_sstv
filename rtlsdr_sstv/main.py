@@ -85,6 +85,11 @@ parser_rx.add_argument(
         help=('Demodular desde muestras en RAW en lugar de recibir desde SDR'),
 )
 parser_rx.add_argument(
+        '--from-demod-raw', action='store_true',
+        help=('Demodular SSTV a partir de FM previamente demodulado, se debe '
+              'especificar --demod-raw'),
+)
+parser_rx.add_argument(
         '--fm-demod-gain', type=float,
         help=('Ganancia del demodulador FM. Por defecto: 0.2'),
         default=0.2,
