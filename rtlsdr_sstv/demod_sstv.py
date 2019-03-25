@@ -16,7 +16,10 @@ LINE_COMP_TIME = 0.1216
 #t = np.arange(len(data))/fs
 
 def crear_hilbert(atten, delta):
-    ''' crea el filtro de hilbert enventanado por kaiser '''
+    '''
+    crea el filtro de hilbert enventanado por kaiser
+    delta en radianes
+    '''
 
     if atten < 21:
         beta = 0
@@ -53,19 +56,20 @@ def crear_analitica(datos, filtro):
 def boundary(value):
     '''checkea los valores maximos y minimos de la frecuencia instantanea'''
 
-    value = min(valor, 2300)
-    value = max(1500, valor)
+    value = min(value, 2300)
+    value = max(1500, value)
 
     return value
 
 def inicializar_demod(datos, image_filename, fs):
     img = Image.new('YCbCr', (640,496), "white")
-    signal = crear_analitica(datos, crear_hilbert(40, fs * 2*np.pi / 2000)) #frecuencia normalizada
+
+    signal = crear_analitica(datos, crear_hilbert(40, (2000 / fs) * 2*np.pi)) #frecuencia normalizada
 
     inst_ph = np.unwrap(np.angle(signal)) #unwrap deja a la fase de forma lineal en vez de rampa
     inst_fr = np.diff((inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y lo resta con x(n)
 
-    inst_fr = list(filtrar(inst_fr, 0.3, 0.2, 30)) #toma senal, frec corte, banda de trans, y caida en dB
+    inst_fr = list(filtrar(inst_fr, 3000 / (fs/2), 1000 / (fs/2), 30)) #toma senal, frec corte, banda de trans, y caida en dB
 
     muestras = 0
     cont_linea = -1
@@ -81,25 +85,26 @@ def inicializar_demod(datos, image_filename, fs):
             muestras = 0 #resetear muestras para la proxima iteracion
             i = i - int((SYNC_TIME-0.002)*fs) + int((SYNC_TIME+PORCH_TIME)*fs) #encajar i para comenzar justo en luminancia
             desfase = 1200 - np.mean(inst_fr[i-int((SYNC_TIME+PORCH_TIME)*fs) : i-int(PORCH_TIME*fs)])
+            valor = inst_fr[i]
 
-            try:
-                y_resampleados = scipy.signal.resample(inst_fr[i:i+int(LINE_COMP_TIME*fs)],640)
-                for columna, valor in enumerate(y_resampleados):
-                    escribir_pixel(img, columna, cont_linea, "lum", boundary(valor+desfase))
+            #  try:
+            y_resampleados = scipy.signal.resample(inst_fr[i:i+int(LINE_COMP_TIME*fs)],640)
+            for columna, valor in enumerate(y_resampleados):
+                escribir_pixel(img, columna, cont_linea, "lum", boundary(valor+desfase))
 
-                cr_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*fs):i+int(LINE_COMP_TIME*2*fs)],640)
-                for columna, valor in enumerate(cr_resampleados):
-                    escribir_pixel(img, columna, cont_linea, "cr", boundary(valor+desfase))
+            cr_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*fs):i+int(LINE_COMP_TIME*2*fs)],640)
+            for columna, valor in enumerate(cr_resampleados):
+                escribir_pixel(img, columna, cont_linea, "cr", boundary(valor+desfase))
 
-                cb_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*2*fs):i+int(LINE_COMP_TIME*3*fs)],640)
-                for columna, valor in enumerate(cb_resampleados):
-                    escribir_pixel(img, columna, cont_linea, "cb", boundary(valor+desfase))
+            cb_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*2*fs):i+int(LINE_COMP_TIME*3*fs)],640)
+            for columna, valor in enumerate(cb_resampleados):
+                escribir_pixel(img, columna, cont_linea, "cb", boundary(valor+desfase))
 
-                ny_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*3*fs):i+int(LINE_COMP_TIME*4*fs)],640)
-                for columna, valor in enumerate(ny_resampleados):
-                    escribir_pixel(img, columna, cont_linea, "nxt_lum", boundary(valor+desfase))
-            except:
-                break
+            ny_resampleados = scipy.signal.resample(inst_fr[i+int(LINE_COMP_TIME*3*fs):i+int(LINE_COMP_TIME*4*fs)],640)
+            for columna, valor in enumerate(ny_resampleados):
+                escribir_pixel(img, columna, cont_linea, "nxt_lum", boundary(valor+desfase))
+            #  except:
+                #  break
 
             i+=int(LINE_COMP_TIME*2*fs)
 
