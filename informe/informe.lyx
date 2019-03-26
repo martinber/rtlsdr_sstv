@@ -365,6 +365,19 @@ reference "fig:esquema_transmisor"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Hablar de códigos VIS?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -716,6 +729,19 @@ El dispositivo transmisor es un LimeSDR Mini mientras que el receptor es
  Para la implementación utilizamos Python y la librería SoapySDR.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Explicar que es cuadratura IQ?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Modulación
 \end_layout
@@ -751,7 +777,10 @@ Finalmente se realiza una modulación más en FM utilizando como portadora
 \end_layout
 
 \begin_layout Standard
-El programa realiza los siguientes pasos para la modulación:
+Para simplificar el procedimiento, la modulación no se realiza en tiempo
+ real, primero se generan y almacenan las muestras en un archivo para más
+ tarde enviarlas al SDR para su transmisión.
+ El procedimiento es el siguiente:
 \end_layout
 
 \begin_layout Enumerate
@@ -760,7 +789,58 @@ Una imagen en formato PNG es abierta y reescalada a la resolución de 640x496
 \end_layout
 
 \begin_layout Enumerate
-asdasd
+Cada par de líneas de la imagen es procesada para obtener una señal cuya
+ amplitud representa a la frecuencia, tal como se muestra en la Imagen 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:formato_pd"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Se genera la señal SSTV, cuya frecuencia varía dependiendo de la señal obtenida
+ en el paso anterior.
+\end_layout
+
+\begin_layout Enumerate
+La señal SSTV se modula digitalmente en FM, utilizando una tasa de muestreo
+ de 
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Cual era la frecuencia?
+\end_layout
+
+\end_inset
+
+) y una frecuencia de portadora de 10kHz.
+ Esta señal FM es compleja y en cuadratura, ses almacenada en un archivo
+ utilizando un canal para cada componente.
+\end_layout
+
+\begin_layout Enumerate
+Una vez generada la señal en cuadratura, se lee el archivo en donde fue
+ almacenada y se envían las muestras al SDR en tiempo real.
+\end_layout
+
+\begin_layout Enumerate
+Previo a la transmisión, el SDR realiza un corrimiento de frecuencia, para
+ mover la señal FM modulada a 10kHz hasta su frecuencia final (por ejemplo,
+ 
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Cual era la frecuencia?
+\end_layout
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Subsection
@@ -785,6 +865,98 @@ Una vez que se tiene la señal en banda base, se debe demodular el PD120,
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Al igual que en la modulación, la demodulación no se realiza en tiempo real,
+ primero se obtienen las muestras desde el SDR y se almacenan en un archivo
+ para su posterior procesamiento.
+\end_layout
+
+\begin_layout Enumerate
+El SDR es sintonizado a la frecuencia de 
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Cual era la frecuencia?
+\end_layout
+
+\end_inset
+
+, este equipo realiza un corrimiento para disminuir la frecuencia de la
+ portadora FM a una frecuencia de banda base próxima a los 0Hz.
+ De esta forma se reciben las muestras en cuadratura a una tasa de muestreo
+ relativamente baja (
+\begin_inset Flex TODO Note (inline)
+status open
+
+\begin_layout Plain Layout
+Cual era la frecuencia?
+\end_layout
+
+\end_inset
+
+) y se almacenan en un archivo.
+\end_layout
+
+\begin_layout Enumerate
+Al terminar la recepción de todas las muestras en cuadratura, el archivo
+ es abierto y se realiza una demodulación FM.
+ Luego de un filtrado y de un remuestreo a una tasa de 10kHz se obtiene
+ la señal SSTV lista para su procesamiento.
+\end_layout
+
+\begin_layout Enumerate
+Se busca obtener una señal cuya amplitud representa a la frecuencia instantánea
+ de la señal SSTV (ver Imagen 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:formato_pd"
+
+\end_inset
+
+).
+ Para esto se realiza demodulación FM a partir de muestras en cuadratura,
+ similar la realizada en el paso anterior.
+ Como el resultado de la demodulación del paso anterior es una señal real,
+ se utiliza un filtro FIR de Hilbert para obtener una señal en cuadratura
+ lista para ser nuevamente demodulada.
+\end_layout
+
+\begin_layout Enumerate
+A partir de la señal de frecuencias instantáneas se buscan los comienzos
+ de línea, es decir, valores de frecuencia instantánea cercanos a los 1200Hz
+ durante 20ms.
+\end_layout
+
+\begin_layout Enumerate
+Luego de encontrar los instantes en donde se realizan saltos de línea, se
+ toman los intervalos de la señal correspondientes a cada componente (
+\begin_inset Formula $Y_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $R-Y$
+\end_inset
+
+, 
+\begin_inset Formula $B-Y$
+\end_inset
+
+ e 
+\begin_inset Formula $Y_{1}$
+\end_inset
+
+) y se remuestrea cada uno de ellos para obtener un valor de frecuencia
+ instantánea por píxel.
+ Es decir cada componente es muestreada 640 veces, lo cual se corresponde
+ al ancho de la imagen en píxeles.
+\end_layout
+
+\begin_layout Enumerate
+Los valores de frecuencia instantánea son utilizados para obtener el valor
+ RGB de cada píxel, necesario para almacenar la imagen en formato PNG.
 \end_layout
 
 \begin_layout Subsection
@@ -1553,6 +1725,12 @@ to.
 Estaría bueno hacer un modo SSTV más rápido que use más ancho de banda.
  La evolucion de SSTV es DRM que es digital, entra en el mismo ancho de
  banda, corrige errores, etc.
+\end_layout
+
+\begin_layout Plain Layout
+Como mejora se debería utilizar un lenguaje de más bajo nivel para lograr
+ un procesamiento en tiempo real, o hacer mejor las cosas, ya que no nos
+ daba el cpu con python
 \end_layout
 
 \end_inset

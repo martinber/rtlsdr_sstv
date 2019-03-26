@@ -144,6 +144,8 @@ def siggen_app(
 
             num = read_raw_samples(input_file, buf, stream_mtu)
 
+            print('MTU: {}, num: {}'.format(stream_mtu, num))
+
             status = sdr.writeStream(tx_stream, [buf], num, timeoutUs=1000000)
             if status.ret != num:
                 raise Exception("Expected writeStream() to consume all samples! %d" % status.ret)

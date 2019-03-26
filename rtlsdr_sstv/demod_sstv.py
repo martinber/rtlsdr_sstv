@@ -87,6 +87,11 @@ def inicializar_demod(datos, image_filename, fs):
             desfase = 1200 - np.mean(inst_fr[i-int((SYNC_TIME+PORCH_TIME)*fs) : i-int(PORCH_TIME*fs)])
             valor = inst_fr[i]
 
+            if i + int(LINE_COMP_TIME*4*fs) >= len(inst_fr):
+                # La señal termina antes de que termine la línea
+                break
+
+
             #  try:
             y_resampleados = scipy.signal.resample(inst_fr[i:i+int(LINE_COMP_TIME*fs)],640)
             for columna, valor in enumerate(y_resampleados):
