@@ -247,14 +247,14 @@ rittanoignacio@gmail.com
 status open
 
 \begin_layout Plain Layout
-Se mostrará una implementación de un transmisor y de un decodificador de
+Se realizó una implementación de un transmisor y de un decodificador de
  imágenes SSTV modo PD120, utilizando SDR y Python.
- asdkalsdjlaks dlaks.
- Nos centraremos en el modo PD120 ya que uno de los objetivos de este trabajo
- es demodular imágenes transmitidas por la Estación Espacial Internacional,
- estas imágenes están destinadas a ser recibidas por radioaficionados.
- Después, además de demodular las transmisiones de la ISS, realizamos una
- transmisión entre dos equipos SDR en un entorno de laboratorio.
+ Nos centramos en el modo PD120 ya que se deseaba demodular imágenes transmitida
+s por la Estación Espacial Internacional, estas imágenes están destinadas
+ a ser recibidas por radioaficionados.
+ Además de demodular las transmisiones de la ISS, realizamos una transmisión
+ entre dos equipos SDR en un ambiente de laboratorio para hacer mediciones
+ y comparaciones en un entorno real.
 \end_layout
 
 \end_inset
@@ -310,14 +310,16 @@ Slow Scan Television
 \end_layout
 
 \begin_layout Plain Layout
-Luego se harán los cálculos correspondientes a como transmite la ISS sus
+Luego se harán los cálculos correspondientes de cómo la ISS transmite sus
  imágenes, analizando la potencia transmitida, ganancia de las antenas,
  etc.
 \end_layout
 
 \begin_layout Plain Layout
-Entonces después demodulamos lo de la ISS, después hicimos transmisiones
- propias utilizando un LimeSDR Mini y recepción utilizando un RTLSDR.
+Se obtuvieron distintas imágenes transmitidas por la estación espacial mediante
+ el uso de una antena Double-Cross y RTLSDR, y se creó un transmisor y demodulad
+or de SSTV PD-120 utilizando Python y LimeSDR para poder realizar nuestras
+ propias transmisiones y mediciones comparativas.
 \end_layout
 
 \end_inset
@@ -369,7 +371,7 @@ reference "fig:esquema_transmisor"
 status open
 
 \begin_layout Plain Layout
-Hablar de códigos VIS?
+Hablar de códigosww VIS?
 \end_layout
 
 \end_inset

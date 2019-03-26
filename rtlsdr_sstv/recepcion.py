@@ -141,7 +141,7 @@ def decimate(samples, input_rate, output_rate):
         sys.exit(1)
 
     factor = int(factor)
-    cutout = 2800 / (output_rate / 2)
+    cutout = 2700 / (input_rate / 2)
     delta_w = cutout/5
 
     coeffs = dsp.lowpass(cutout, delta_w, 30)

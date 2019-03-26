@@ -164,5 +164,6 @@ def siggen_app(
     #cleanup streams
     print("Cleanup stream")
     sdr.deactivateStream(tx_stream)
+    time.sleep(120)
     sdr.closeStream(tx_stream)
     print("Done!")

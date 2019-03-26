@@ -10,6 +10,7 @@ from PIL import Image
 ''' constantes '''
 PORCH_TIME = 0.00208
 SYNC_TIME = 0.02
+DETECT_SYNC_TIME = SYNC_TIME * 0.7
 LINE_COMP_TIME = 0.1216
 
 #fs, data = wavfile.read('./audios_imagenes_prueba/pass_1_norm_7000.wav')
@@ -66,24 +67,35 @@ def inicializar_demod(datos, image_filename, fs):
 
     signal = crear_analitica(datos, crear_hilbert(40, (2000 / fs) * 2*np.pi)) #frecuencia normalizada
 
+    import raw_file
+    with open('antes_filtro.raw', 'wb') as output_file:
+        for s in signal:
+            raw_file.write_complex_sample(output_file, s)
+
     inst_ph = np.unwrap(np.angle(signal)) #unwrap deja a la fase de forma lineal en vez de rampa
     inst_fr = np.diff((inst_ph) / (2.0*np.pi) * fs) #diff toma el valor de x(n+1) y lo resta con x(n)
 
-    inst_fr = list(filtrar(inst_fr, 3000 / (fs/2), 1000 / (fs/2), 30)) #toma senal, frec corte, banda de trans, y caida en dB
+
+    inst_fr = list(filtrar(inst_fr, 1000 / (fs/2), 500 / (fs/2), 30)) #toma senal, frec corte, banda de trans, y caida en dB
 
     muestras = 0
     cont_linea = -1
     i = 0
+
+    import raw_file
+    with open('despues_filtro.raw', 'wb') as output_file:
+        for s in inst_fr:
+            raw_file.write_sample(output_file, s/3000)
 
     while i < len(inst_fr):
 
         if 900 <= inst_fr[i] <= 1300:
             muestras += 1 #contador de muestras, si muchas se encuentran en el rango era cambio de linea
 
-        if muestras > int((SYNC_TIME-0.002)*fs):
+        if muestras > int((DETECT_SYNC_TIME)*fs):
             cont_linea += 2 #casi seguro indico la siguiente
             muestras = 0 #resetear muestras para la proxima iteracion
-            i = i - int((SYNC_TIME-0.002)*fs) + int((SYNC_TIME+PORCH_TIME)*fs) #encajar i para comenzar justo en luminancia
+            i = i - int((DETECT_SYNC_TIME)*fs) + int((SYNC_TIME+PORCH_TIME)*fs) #encajar i para comenzar justo en luminancia
             desfase = 1200 - np.mean(inst_fr[i-int((SYNC_TIME+PORCH_TIME)*fs) : i-int(PORCH_TIME*fs)])
             valor = inst_fr[i]
 
