@@ -144,8 +144,6 @@ def siggen_app(
 
             num = read_raw_samples(input_file, buf, stream_mtu)
 
-            print('MTU: {}, num: {}'.format(stream_mtu, num))
-
             status = sdr.writeStream(tx_stream, [buf], num, timeoutUs=1000000)
             if status.ret != num:
                 raise Exception("Expected writeStream() to consume all samples! %d" % status.ret)
@@ -161,9 +159,14 @@ def siggen_app(
                 print("Terminado")
                 break
 
+    # escribir stream para obtener un timeout
+    #  status = sdr.writeStream(tx_stream, [buf], num, timeoutUs=120_000_000)
+    #  print(status)
+    time.sleep(120)
+
     #cleanup streams
     print("Cleanup stream")
     sdr.deactivateStream(tx_stream)
-    time.sleep(120)
+
     sdr.closeStream(tx_stream)
     print("Done!")
