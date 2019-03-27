@@ -141,10 +141,10 @@ def decimate(samples, input_rate, output_rate):
         sys.exit(1)
 
     factor = int(factor)
-    cutout = 2700 / (input_rate / 2)
-    delta_w = cutout/5
+    cutout = 3000 / (input_rate / 2)
+    delta_w = cutout / 2
 
-    coeffs = dsp.lowpass(cutout, delta_w, 30)
+    coeffs = dsp.lowpass_dc_removal(cutout, delta_w, 30)
 
     print("Largo de filtro: {}".format(len(coeffs)))
     print("Factor: {}".format(factor))
