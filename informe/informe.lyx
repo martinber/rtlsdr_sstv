@@ -731,12 +731,158 @@ El dispositivo transmisor es un LimeSDR Mini mientras que el receptor es
  Para la implementación utilizamos Python y la librería SoapySDR.
 \end_layout
 
+\begin_layout Subsection
+Señales I/Q
+\end_layout
+
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
+Un concepto importante utilizado en la modulación y demodulación es la señal
+ I/Q: además de representar señal digital por su amplitud real en función
+ del tiempo (I), al mismo tiempo se representa a su componente en cuadratura
+ (Q).
+ Esto no tiene relación con la polarización de la onda electromagnética,
+ en su lugar se corresponde a la parte real e imaginaria de la señal analítica
+ y representa las componentes cosenoidales y senoidales de la señal.
+\end_layout
+
+\begin_layout Standard
+Los SDR trabajan con muestras I/Q ya que simplifica la modulación y demodulación
+, por ejemplo, es muy simple la determinación de la amplitud, fase y frecuencia
+ de señales como las que se muestran en la Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ejemplos-iq"
+
+\end_inset
+
+.
+ En el caso en donde se necesite obtener una señal I/Q a partir de una señal
+ real se puede emplear un filtro de Hilbert.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A=\sqrt{I^{2}+Q^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\phi=\arctan(I/Q)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f=\frac{\partial\phi}{\partial t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-Explicar que es cuadratura IQ?
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename fotos_varias/am3d.png
+	lyxscale 50
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modulación AM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename fotos_varias/fm3d.png
+	lyxscale 50
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modulación FM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ejemplos-iq"
+
+\end_inset
+
+Ejemplos de señales I/Q.
+ Crédito: M.
+ Q Kuisma
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -746,36 +892,6 @@ Explicar que es cuadratura IQ?
 
 \begin_layout Subsection
 Modulación
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-La modulación consiste en abrir un archivo de imagen PNG, luego se hace
- un reescalado si es necesario etc.
-\end_layout
-
-\begin_layout Plain Layout
-Como en el modo PD120 se usa YCrCb entonces utilizando al librería Pillow
- (PIL) cargamos la imagen en ese formato.
- Entonces nos quedó una matriz en donde cada componente tiene las componentes
- Y, Cr, Cb.
-\end_layout
-
-\begin_layout Plain Layout
-Luego se hace una iteración para cada línea, dfsjkdf
-\end_layout
-
-\begin_layout Plain Layout
-Finalmente se realiza una modulación más en FM utilizando como portadora
- a la frecuencia final, etc.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -809,19 +925,9 @@ Se genera la señal SSTV, cuya frecuencia varía dependiendo de la señal obteni
 
 \begin_layout Enumerate
 La señal SSTV se modula digitalmente en FM, utilizando una tasa de muestreo
- de 
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Cual era la frecuencia?
-\end_layout
-
-\end_inset
-
-) y una frecuencia de portadora de 10kHz.
- Esta señal FM es compleja y en cuadratura, ses almacenada en un archivo
- utilizando un canal para cada componente.
+ de 300kHz y una frecuencia de portadora de 10kHz.
+ Esta señal FM es compleja y en cuadratura, es almacenada en un archivo
+ utilizando dos canales.
 \end_layout
 
 \begin_layout Enumerate
@@ -831,42 +937,12 @@ Una vez generada la señal en cuadratura, se lee el archivo en donde fue
 
 \begin_layout Enumerate
 Previo a la transmisión, el SDR realiza un corrimiento de frecuencia, para
- mover la señal FM modulada a 10kHz hasta su frecuencia final (por ejemplo,
- 
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Cual era la frecuencia?
-\end_layout
-
-\end_inset
-
-)
+ mover la señal FM modulada a 10kHz hasta su frecuencia final (en nuestro
+ caso, 462.538MHz)
 \end_layout
 
 \begin_layout Subsection
 Demodulación
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-La primera demodulación FM se hace a partir de las muestras IQ, ajshdlajsd
-\end_layout
-
-\begin_layout Plain Layout
-Una vez que se tiene la señal en banda base, se debe demodular el PD120,
- para esto se utilizó un filtro de Hilbert que como resultado da las muestras
- en cuadratura.
- Luego se aplica un retraso sdfjsdfsjkafsa.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -876,30 +952,11 @@ Al igual que en la modulación, la demodulación no se realiza en tiempo real,
 \end_layout
 
 \begin_layout Enumerate
-El SDR es sintonizado a la frecuencia de 
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Cual era la frecuencia?
-\end_layout
-
-\end_inset
-
-, este equipo realiza un corrimiento para disminuir la frecuencia de la
- portadora FM a una frecuencia de banda base próxima a los 0Hz.
+El SDR es sintonizado a la frecuencia de 462.538MHz, este equipo realiza
+ un corrimiento para disminuir la frecuencia de la portadora FM a una frecuencia
+ de banda base próxima a los 0Hz.
  De esta forma se reciben las muestras en cuadratura a una tasa de muestreo
- relativamente baja (
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Cual era la frecuencia?
-\end_layout
-
-\end_inset
-
-) y se almacenan en un archivo.
+ relativamente baja (300kHz) y se almacenan en un archivo.
 \end_layout
 
 \begin_layout Enumerate
@@ -907,6 +964,12 @@ Al terminar la recepción de todas las muestras en cuadratura, el archivo
  es abierto y se realiza una demodulación FM.
  Luego de un filtrado y de un remuestreo a una tasa de 10kHz se obtiene
  la señal SSTV lista para su procesamiento.
+\end_layout
+
+\begin_layout Enumerate
+Ya que el resultado de la demodulación del paso anterior es una señal real,
+ se utiliza un filtro FIR de Hilbert para obtener una señal en cuadratura
+ lista para ser nuevamente demodulada.
 \end_layout
 
 \begin_layout Enumerate
@@ -919,17 +982,14 @@ reference "fig:formato_pd"
 \end_inset
 
 ).
- Para esto se realiza demodulación FM a partir de muestras en cuadratura,
- similar la realizada en el paso anterior.
- Como el resultado de la demodulación del paso anterior es una señal real,
- se utiliza un filtro FIR de Hilbert para obtener una señal en cuadratura
- lista para ser nuevamente demodulada.
+ Para esto se realiza demodulación FM a partir de las muestras en cuadratura,
+ similar a la primera demodulación FM.
 \end_layout
 
 \begin_layout Enumerate
 A partir de la señal de frecuencias instantáneas se buscan los comienzos
- de línea, es decir, valores de frecuencia instantánea cercanos a los 1200Hz
- durante 20ms.
+ de línea, es decir, valores de frecuencia instantánea de 1200Hz durante
+ 20ms.
 \end_layout
 
 \begin_layout Enumerate
@@ -947,7 +1007,7 @@ Luego de encontrar los instantes en donde se realizan saltos de línea, se
 \end_inset
 
  e 
-\begin_inset Formula $Y_{1}$
+\begin_inset Formula $Y_{2}$
 \end_inset
 
 ) y se remuestrea cada uno de ellos para obtener un valor de frecuencia
@@ -971,6 +1031,52 @@ status open
 
 \begin_layout Plain Layout
 Imagenes de resultado
+\end_layout
+
+\begin_layout Plain Layout
+En el pato tuvimos una portadora con 60dB por encima del piso de ruido
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fotos_varias/comparacion_pato.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:comparacion_pato"
+
+\end_inset
+
+De izquierda a derecha: imagen original, demodulación a partir de archivo
+ sin ruido, demodulación de imagen transmitida
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1627,21 +1733,6 @@ Heavens-Above
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-En un principio almacenamos las grabaciones como archivos de audio WAV y
- demodulamos con el software QSSTV.
- La demodulación utilizando nuestro propio software se explica más adelante
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -1687,18 +1778,19 @@ Resultados
 \end_layout
 
 \begin_layout Standard
+Debido a que las transmisiones desde la Estación Espacial Internacional
+ ocurren sólo determinados días al año, utilizamos una grabación propia
+ realizada previamente.
+ Esta grabación de la señal SSTV es el resultado de la demodulación FM realizada
+ por GQRX.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex TODO Note (inline)
 status open
 
 \begin_layout Plain Layout
 Como resultados obtuvimos las imágenes fjkgldkfjgdsgfd
-\end_layout
-
-\begin_layout Plain Layout
-Para las transmisiones hechas entre nosotros vimos que se necesita un SNR
- de aprox ...
- Si se usa QSSTV en ambos extremos el SNR necesario es de ...
- O se puede calcular la figura de ruido
 \end_layout
 
 \end_inset
@@ -1994,6 +2086,20 @@ Compensating for Doppler Shift When Contacting the ISS
 \end_inset
 
  .https://www.qsl.net/ah6rh/am-radio/spacecomm/doppler-and-the-iss.html
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "12"
+key "key-12"
+
+\end_inset
+
+M.
+ Q.
+ Kuisma.
+ http://whiteboard.ping.se/SDR/IQ
 \end_layout
 
 \end_body

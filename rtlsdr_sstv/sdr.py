@@ -15,12 +15,17 @@ class Sdr:
     def _generator(self):
         #receive some samples
         while True:
+
+            # len(self.buff) = numero de muestras que pido (1024)
+            # sr.ret = numero de muestras recibidas
+
             sr = self.sdr.readStream(self.rxStream, [self.buff], len(self.buff))
-            #  print(sr.ret) #num samples or error code
-            #  print(sr.flags) #flags set by receive operation
-            #  print(sr.timeNs) #timestamp for receive buffer
-            for s in self.buff:
-                yield s
+            if sr.ret != len(self.buff):
+                print(sr.ret) # numero de muestras recibidas
+
+            if sr.ret > 0:
+                for i in range(sr.ret):
+                    yield self.buff[i]
 
     def __enter__(self):
         #enumerate devices

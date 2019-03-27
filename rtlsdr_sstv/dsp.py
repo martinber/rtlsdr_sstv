@@ -76,6 +76,8 @@ def lowpass_dc_removal(cutout, delta_w, atten):
             coeffs[i] *= math.sin(n * math.pi * cutout) / (n * math.pi) - \
                          math.sin(n * math.pi * delta_w/2) / (n * math.pi)
 
+    return coeffs
+
 def filtrar(signal, coeffs):
     '''
     Filtra una señal (en un vector) usando los coeficientes (en otro vector)
