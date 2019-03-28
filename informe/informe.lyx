@@ -1,4 +1,4 @@
-#LyX 2.3 created this file. For more info see http://www.lyx.org/
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
 \lyxformat 474
 \begin_document
 \begin_header
@@ -243,10 +243,6 @@ rittanoignacio@gmail.com
 \end_layout
 
 \begin_layout Abstract
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
 Se realizó una implementación de un transmisor y de un decodificador de
  imágenes SSTV modo PD120, utilizando SDR y Python.
  Nos centramos en el modo PD120 ya que se deseaba demodular imágenes transmitida
@@ -255,11 +251,6 @@ s por la Estación Espacial Internacional, estas imágenes están destinadas
  Además de demodular las transmisiones de la ISS, realizamos una transmisión
  entre dos equipos SDR en un ambiente de laboratorio para hacer mediciones
  y comparaciones en un entorno real.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -275,25 +266,17 @@ status open
 status open
 
 \begin_layout Plain Layout
- U
+ E
 \end_layout
 
 \end_inset
 
-n
+l
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-SSTV proviene de 
+ término SSTV proviene de 
 \emph on
 Slow Scan Television
 \emph default
@@ -309,22 +292,17 @@ Slow Scan Television
  sus diferencias.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Luego se harán los cálculos correspondientes de cómo la ISS transmite sus
  imágenes, analizando la potencia transmitida, ganancia de las antenas,
  etc.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Se obtuvieron distintas imágenes transmitidas por la estación espacial mediante
  el uso de una antena Double-Cross y RTLSDR, y se creó un transmisor y demodulad
 or de SSTV PD-120 utilizando Python y LimeSDR para poder realizar nuestras
  propias transmisiones y mediciones comparativas.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -367,16 +345,11 @@ reference "fig:esquema_transmisor"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Hablar de códigosww VIS?
-\end_layout
-
-\end_inset
-
-
+Al comienzo de las transmisiones de SSTV, se envía un código llamado VIS
+ (Vertical Interval Signaling), el cuál es utilizado para indicar el modo
+ o tipo de transmisión que se va a utilizar.
+ Para nuestro trabajo como ya sabemos el modo que vamos a enviar y recibir,
+ no hacemos uso de este código.
 \end_layout
 
 \begin_layout Standard
@@ -611,7 +584,7 @@ De esta manera la resolución vertical de luminancia es dos veces mayor que
  Esta compresión disminuye el tiempo de transmisión aprovechando el hecho
  que los cambios de color en la imagen son menos perceptibles a la vista
  que los cambios en el brillo, un ejemplo de esto se puede observar en la
- Imagen
+ Imagen 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:detalle_comparacion_color"
@@ -672,56 +645,16 @@ Las frecuencias utilizadas producen una señal con un ancho de banda de 2.5kHz,
  canal VHF (entre 12.5kHz y 25kHz).
 \end_layout
 
-\begin_layout Subsection
-Comparación de modos
-\end_layout
-
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Parecido al modo PD120 están los modos PD60, PD90, etc.
- Sus diferencias son jasdfhlksadf
-\end_layout
-
-\begin_layout Plain Layout
-Después están los modos Martin, adjfslajdfadf.
- Varían sus tiempos de transmisión, calidades, resolución, etc.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A modo de comparación, analizaremos brevemente qué diferencias presenta
- el modo PD 120 con otros modos de SSTV.
-\end_layout
-
-\begin_layout Itemize
-PD 50/90/120/160/180/240/290.
- Estos modos varían en resolución y tiempo de transmisión, pero su funcionamient
-o y formato es el mismo.
+Si bien el desarrollo del trabajo es solo para el modo PD120, existen otros
+ modos de SSTV tales como Martin, Robot, Scottie, entre otros, como así
+ también hay otras variaciones del modo PD (50/90/120/160/180/240/290) los
+ cuales su funcionamiento y formato es el mismo, pero cambian la resolución
+ y el tiempo de transmisión.
 \end_layout
 
 \begin_layout Section
 Implementación de modulador/demodulador PD 120
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Para la implementación utilizamos nuestro propio programa hecho en Python,
- que se comunica con el SDR utilizando la librería SoapySDR
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -737,7 +670,7 @@ Señales I/Q
 
 \begin_layout Standard
 Un concepto importante utilizado en la modulación y demodulación es la señal
- I/Q: además de representar señal digital por su amplitud real en función
+ I/Q: además de representar la señal digital por su amplitud real en función
  del tiempo (I), al mismo tiempo se representa a su componente en cuadratura
  (Q).
  Esto no tiene relación con la polarización de la onda electromagnética,
@@ -925,7 +858,7 @@ Se genera la señal SSTV, cuya frecuencia varía dependiendo de la señal obteni
 
 \begin_layout Enumerate
 La señal SSTV se modula digitalmente en FM, utilizando una tasa de muestreo
- de 300kHz y una frecuencia de portadora de 10kHz.
+ de 100kHz y una frecuencia de portadora de 10kHz.
  Esta señal FM es compleja y en cuadratura, es almacenada en un archivo
  utilizando dos canales.
 \end_layout
@@ -957,6 +890,8 @@ El SDR es sintonizado a la frecuencia de 462.538MHz, este equipo realiza
  de banda base próxima a los 0Hz.
  De esta forma se reciben las muestras en cuadratura a una tasa de muestreo
  relativamente baja (300kHz) y se almacenan en un archivo.
+ No se utiliza 100kHz de tasa de muestreo como en el transmisor, debido
+ a que el RTLSDR no soporta tasa mas bajas que la utilizada.
 \end_layout
 
 \begin_layout Enumerate
@@ -1019,27 +954,6 @@ Luego de encontrar los instantes en donde se realizan saltos de línea, se
 \begin_layout Enumerate
 Los valores de frecuencia instantánea son utilizados para obtener el valor
  RGB de cada píxel, necesario para almacenar la imagen en formato PNG.
-\end_layout
-
-\begin_layout Subsection
-Resultados
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex TODO Note (inline)
-status open
-
-\begin_layout Plain Layout
-Imagenes de resultado
-\end_layout
-
-\begin_layout Plain Layout
-En el pato tuvimos una portadora con 60dB por encima del piso de ruido
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1372,7 +1286,7 @@ status open
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="7" columns="2">
-<features booktabs="true" tabularvalignment="middle">
+<features rotate="0" booktabs="true" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
@@ -1786,11 +1700,58 @@ Debido a que las transmisiones desde la Estación Espacial Internacional
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex TODO Note (inline)
+Las imágenes obtenidas a partir de la recepción del audio enviado por la
+ ISS y posteriormente procesadas por nuestro programa se observan en la
+ Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Resultado-ISS"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-Como resultados obtuvimos las imágenes fjkgldkfjgdsgfd
+\align center
+\begin_inset Graphics
+	filename fotos_varias/salida_iss_qsstv_buena_calidad.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Resultado-ISS"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+
+\end_inset
+
+Imagen recibida de la ISS
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1803,33 +1764,30 @@ Conclusiones
 \end_layout
 
 \begin_layout Appendices
-\begin_inset Flex TODO Note (inline)
-status open
 
-\begin_layout Plain Layout
+\end_layout
+
+\begin_layout Standard
 Debido a la popularidad de los sistemas SDR es una buena opción para hacer
- modulaciones y demodulaciones de bajo costo sin necesidad de comprar una
- radio Baofeng sdfskdf, esto es por el aumento de las capacidades de procesamien
-to.
- Además es muy flexible ya que s epueden hacer distintos tipos de modulaciones
- a distintos anchos de banda, etc.
+ modulaciones y demodulaciones de bajo costo sin necesidad de comprar un
+ equipo de alto costo para la recepción, esto es por el aumento de las capacidad
+es de procesamiento.
+ Además es muy flexible ya que se pueden hacer distintos tipos de modulaciones
+ a distintos anchos de banda.
 \end_layout
 
-\begin_layout Plain Layout
-Estaría bueno hacer un modo SSTV más rápido que use más ancho de banda.
- La evolucion de SSTV es DRM que es digital, entra en el mismo ancho de
- banda, corrige errores, etc.
+\begin_layout Standard
+Analizando los resultados obtenidos, se ve que respecto de la imágen original,
+ pierde un poco de resolución y la sincronización no es perfecta.
+ Para mejorar el trabajo, se podría realizar un análisis de la transmisión
+ a larga distancia, debido a que las mediciones realizadas fueron en un
+ ambiente de laboratorio.
 \end_layout
 
-\begin_layout Plain Layout
-Como mejora se debería utilizar un lenguaje de más bajo nivel para lograr
- un procesamiento en tiempo real, o hacer mejor las cosas, ya que no nos
- daba el cpu con python
-\end_layout
-
-\end_inset
-
-
+\begin_layout Standard
+Como propuesta se podría diseñar un modo SSTV que use más ancho de banda,
+ que permita enviar imágenes de mayor calidad o bien realizar la transmisión
+ en un tiempo menor.
 \end_layout
 
 \begin_layout Bibliography
@@ -1904,8 +1862,7 @@ Antennna Systems and Antenna EVA Status
 \length 0dd
 \end_inset
 
-AntennaSystemsEVAStatus
-BauerSamburov.pdf
+AntennaSystemsEVAStatusBauerSamburov.pdf
 \end_layout
 
 \begin_layout Bibliography

@@ -42,7 +42,7 @@ parser.add_argument(
         '-f', '--rf-freq', type=float,
         help=('Frecuencia de transmision o recepción de RF en Hz, por defecto: '
               '137.2e6 para trabajar en los 137.2MHz'),
-        default=137.2e6,
+        default=462.552e6,
 )
 parser.add_argument(
         '--rf-rate', type=float,
